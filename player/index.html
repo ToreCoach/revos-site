@@ -223,6 +223,10 @@ body { padding: 0; }
 .vid.ph { display: grid; place-items: center; color: var(--muted); text-align: center; padding: 16px; font-size: 15px; }
 .player { margin-top: 10px; }
 .btn:disabled { opacity: .6; }
+.ptoast { visibility: hidden; opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s 0.35s; }
+.ptoast.on { visibility: visible; opacity: 1; transition: transform 0.35s ease, opacity 0.35s ease; }
+html, body { min-height: 100%; }
+@media (max-width: 559px) { body { padding-inline: 0; padding-block: env(safe-area-inset-top, 0px) 0; } .app { min-height: 100dvh; } .screen { padding-top: 24px; } }
 </style>
 <div class="app"><div class="screen" id="screen"></div><nav class="pnav" id="nav" hidden aria-label="Navigazione"></nav><div class="ptoast" id="ptoast" role="status" aria-live="polite"></div></div>
 <script type="module">
