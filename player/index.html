@@ -232,7 +232,7 @@ html, body { min-height: 100%; }
 <script type="module">
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('firebase-messaging-sw.js').catch(() => {});
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 import { getFirestore, collection, query, where, onSnapshot, doc, getDoc, updateDoc, arrayUnion, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js";
@@ -327,6 +327,7 @@ function profile() {
     '<div class="stats"><div><b>' + m.length + '</b><span>Assegnati</span></div><div class="g"><b>' + seen + '</b><span>Visti</span></div><div class="r"><b>' + (m.length - seen) + '</b><span>Da vedere</span></div></div>' +
     '<div class="kv"><span>Ultima visualizzazione</span><b>' + (last ? fmtDT(last) : 'nessuna') + '</b></div>' +
     notifBox() +
+    '<div id="pwBox" style="margin-top:14px"><button class="btn wide" data-act="pw">Cambia password</button></div>' +
     '<p class="priv">Vedi solo i video che il tuo allenatore ha assegnato a te. Nessun altro giocatore vede i tuoi.</p>' +
     '<button class="btn wide" style="margin-top:18px" data-act="logout">' + ICO.out + 'Esci</button>';
 }
@@ -338,6 +339,38 @@ function notifBox() {
   else if (perm === 'granted' && S.notifOn) body = '<span>Notifiche attive su questo telefono.</span>';
   else body = '<span>Ricevi un avviso quando il tuo allenatore ti assegna un video.</span><button class="btn wide" style="margin-top:10px" data-act="notif">Attiva notifiche</button>';
   return '<div class="priv" style="border-style:solid">' + body + (S.notifMsg ? '<br><small>' + esc(S.notifMsg) + '</small>' : '') + '</div>';
+}
+function apriCambioPassword() {
+  const box = $('#pwBox'); if (!box) return;
+  box.innerHTML = '<form id="pwf" class="priv" style="border-style:solid"><div class="fld" style="margin-top:0"><label for="pwOld">Password attuale</label><input id="pwOld" type="password" autocomplete="current-password" required></div>' +
+    '<div class="fld"><label for="pwNew">Nuova password (min. 6)</label><input id="pwNew" type="password" autocomplete="new-password" minlength="6" required></div>' +
+    '<div class="fld"><label for="pwNew2">Ripeti la nuova password</label><input id="pwNew2" type="password" autocomplete="new-password" minlength="6" required></div>' +
+    '<p class="err" id="pwErr" role="alert"></p><p class="okm" id="pwOk"></p>' +
+    '<button class="btn btn-lime wide" type="submit" id="pwBtn" style="margin-top:12px">Salva password</button></form>';
+  $('#pwOld').focus();
+  $('#pwf').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = $('#pwErr'), ok = $('#pwOk'), btn = $('#pwBtn'); err.textContent = ''; ok.textContent = '';
+    const oldP = $('#pwOld').value, n1 = $('#pwNew').value, n2 = $('#pwNew2').value;
+    if (n1.length < 6) { err.textContent = 'La nuova password deve avere almeno 6 caratteri.'; return; }
+    if (n1 !== n2) { err.textContent = 'Le due password nuove non coincidono.'; return; }
+    if (n1 === oldP) { err.textContent = 'La nuova password è uguale a quella attuale.'; return; }
+    btn.disabled = true;
+    try {
+      const u = auth.currentUser;
+      await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, oldP));
+      await updatePassword(u, n1);
+      ok.textContent = 'Password cambiata. Da ora usa quella nuova.';
+      $('#pwf').reset();
+    } catch (er) {
+      const c = er && er.code;
+      err.textContent = (c === 'auth/wrong-password' || c === 'auth/invalid-credential') ? 'La password attuale non è corretta.'
+        : c === 'auth/weak-password' ? 'La nuova password è troppo debole.'
+        : c === 'auth/too-many-requests' ? 'Troppi tentativi. Riprova tra qualche minuto.'
+        : 'Non riesco a cambiarla. Riprova.';
+    }
+    btn.disabled = false;
+  });
 }
 async function attivaNotifiche() {
   S.notifMsg = '';
@@ -420,6 +453,7 @@ document.addEventListener('click', async (e) => {
   else if (act === 'fav') { const a = byId(S.detail); await setAssign(a.id, { favorite: !a.favorite }); }
   else if (act === 'logout') { await signOut(auth); }
   else if (act === 'notif') { attivaNotifiche(); }
+  else if (act === 'pw') { apriCambioPassword(); }
   else if (act === 'reset') {
     const em = ($('#lgEmail') || {}).value;
     if (!em) { S.err = 'Scrivi la tua email, poi tocca di nuovo “Password dimenticata?”.'; S.info = ''; render(); return; }
