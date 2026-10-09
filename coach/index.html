@@ -241,7 +241,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app), db = getFirestore(app), storage = getStorage(app);
 
-const S = { user: null, profile: null, teamId: null, team: null, players: [], videos: [], assigns: [], tab: 'att', selP: {}, selV: {}, loading: true, err: '' };
+const S = { user: null, profile: null, teamId: null, team: null, players: [], groups: [], gSel: {}, gEdit: null, videos: [], assigns: [], tab: 'att', selP: {}, selV: {}, loading: true, err: '' };
 let unsubs = [];
 const $ = (s) => document.querySelector(s);
 const pad = (n) => (n < 10 ? '0' : '') + n;
@@ -303,8 +303,13 @@ function showMain() {
     m.innerHTML = '<div class="card"><h3 class="disp">Nuovo giocatore</h3><p class="hint">Crea l’accesso del giocatore: poi gli comunichi email e password.</p>' +
       '<form id="gf" class="grid2"><div class="fld"><label for="gN">Nome e cognome</label><input id="gN" required></div><div class="fld"><label for="gNum">Numero</label><input id="gNum" inputmode="numeric" placeholder="7"></div>' +
       '<div class="fld"><label for="gE">Email</label><input id="gE" type="email" required></div><div class="fld"><label for="gP">Password (min. 6)</label><input id="gP" type="text" minlength="6" required></div>' +
-      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">I tuoi giocatori</h3><div id="plist"></div></div>';
+      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">I tuoi giocatori</h3><div id="plist"></div></div>' +
+      '<div class="card"><h3 class="disp">Gruppi</h3><p class="hint">Crea gruppi (es. Portieri, Difesa, Ali) per assegnare un video a tutti con un clic.</p>' +
+      '<div class="fld"><label for="gnm">Nome del gruppo</label><input id="gnm" placeholder="Portieri"></div><div class="flab">Giocatori del gruppo</div><div id="gmem" class="fgrid"></div>' +
+      '<p class="msg" id="msg2"></p><div class="fact"><button class="btn btn-lime" id="gsave">Salva gruppo</button> <button class="btn" id="gcancel" hidden>Annulla modifica</button></div><div id="glist" style="margin-top:14px"></div></div>';
     $('#gf').addEventListener('submit', addPlayer);
+    $('#gsave').addEventListener('click', saveGroup);
+    $('#gcancel').addEventListener('click', () => { S.gEdit = null; S.gSel = {}; $('#gnm').value = ''; paint(); });
   } else if (S.tab === 'vid') {
     m.innerHTML = '<div class="card"><h3 class="disp">Carica un video</h3><p class="hint">Un file MP4 (un clip o un’esportazione di REVOS Analyst). Resta archiviato una volta sola.</p>' +
       '<form id="vf" class="grid2"><div class="fld full"><label for="vFile">File video</label><input id="vFile" type="file" accept="video/*" required></div>' +
@@ -315,7 +320,7 @@ function showMain() {
     $('#vFile').addEventListener('change', () => { const f = $('#vFile').files[0]; if (f && !$('#vT').value) $('#vT').value = f.name.replace(/\.[^.]+$/, ''); });
     $('#vf').addEventListener('submit', uploadVideo);
   } else if (S.tab === 'ass') {
-    m.innerHTML = '<div class="card"><h3 class="disp">Assegna video</h3><p class="hint">Scegli i video e i giocatori. Ogni giocatore vedrà solo quello che gli assegni.</p><div class="flab">Video</div><div id="aV" class="form"></div><div class="flab">Giocatori</div><div id="aP" class="fgrid"></div>' +
+    m.innerHTML = '<div class="card"><h3 class="disp">Assegna video</h3><p class="hint">Scegli i video e i giocatori. Ogni giocatore vedrà solo quello che gli assegni.</p><div class="flab">Video</div><div id="aV" class="form"></div><div class="flab">Giocatori</div><div id="aG" class="pills" style="margin-bottom:8px"></div><div id="aP" class="fgrid"></div>' +
       '<div class="flab"><label for="aN">Nota dell’allenatore</label></div><div class="fld" style="margin-top:0"><textarea id="aN" rows="3" placeholder="Guarda soprattutto il timing dell’uscita…"></textarea></div>' +
       '<label class="chk" style="margin-top:10px"><input type="checkbox" id="aI">Segna come importante</label><p class="msg" id="msg"></p><div class="fact"><button class="btn btn-lime" id="aGo">Assegna</button></div></div>';
     $('#aGo').addEventListener('click', assign);
@@ -327,6 +332,29 @@ function showMain() {
 function paint() {
   const P = players();
   if ($('#plist')) $('#plist').innerHTML = P.length ? P.map((p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.number ? ' · ' + esc(p.number) : '') + '</b><small>' + esc(p.email || '') + '</small></div></div>').join('') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  if ($('#gmem')) {
+    $('#gmem').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.gSel[p.id] ? ' on' : '') + '"><input type="checkbox" data-gm="' + p.id + '"' + (S.gSel[p.id] ? ' checked' : '') + '>' + esc(p.name) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
+    [].forEach.call(document.querySelectorAll('[data-gm]'), (c) => c.addEventListener('change', () => { S.gSel[c.dataset.gm] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
+    $('#gcancel').hidden = !S.gEdit;
+    $('#gsave').textContent = S.gEdit ? 'Aggiorna gruppo' : 'Salva gruppo';
+  }
+  if ($('#glist')) {
+    $('#glist').innerHTML = S.groups.length ? S.groups.map((g) => {
+      const n = (g.members || []).filter((id) => P.some((p) => p.id === id)).length;
+      return '<div class="crow"><div class="t"><b>' + esc(g.name) + '</b><small>' + n + ' giocatori</small></div><div class="pills"><button class="btn" data-ge="' + g.id + '">Modifica</button><button class="btn" data-gd="' + g.id + '">Elimina</button></div></div>';
+    }).join('') : '<div class="empty">Nessun gruppo ancora.</div>';
+    [].forEach.call(document.querySelectorAll('[data-ge]'), (b) => b.addEventListener('click', () => {
+      const g = S.groups.filter((x) => x.id === b.dataset.ge)[0]; if (!g) return;
+      S.gEdit = g.id; S.gSel = {}; (g.members || []).forEach((id) => { S.gSel[id] = true; }); $('#gnm').value = g.name; paint(); $('#gnm').focus();
+    }));
+    [].forEach.call(document.querySelectorAll('[data-gd]'), (b) => b.addEventListener('click', () => deleteGroup(b.dataset.gd, b)));
+  }
+  if ($('#aG')) {
+    $('#aG').innerHTML = P.length ? '<button class="btn" data-gall="1">Tutti</button>' + S.groups.map((g) => '<button class="btn" data-gp="' + g.id + '">' + esc(g.name) + '</button>').join('') : '';
+    const setSel = (ids) => { const all = ids.length && ids.every((id) => S.selP[id]); ids.forEach((id) => { S.selP[id] = !all; }); paint(); };
+    [].forEach.call(document.querySelectorAll('[data-gall]'), (b) => b.addEventListener('click', () => setSel(P.map((p) => p.id))));
+    [].forEach.call(document.querySelectorAll('[data-gp]'), (b) => b.addEventListener('click', () => { const g = S.groups.filter((x) => x.id === b.dataset.gp)[0]; if (g) setSel((g.members || []).filter((id) => P.some((p) => p.id === id))); }));
+  }
   if ($('#vlist')) $('#vlist').innerHTML = S.videos.length ? S.videos.slice().sort((a, b) => ((dt(b.createdAt) || 0) - (dt(a.createdAt) || 0))).map((v) => {
     const n = S.assigns.filter((a) => a.videoId === v.id).length;
     return '<div class="crow"><div class="t"><b>' + esc(v.title) + '</b><small>' + esc(v.match || '') + ' · ' + Math.round(v.durationSec || 0) + ' sec · ' + (v.sizeBytes ? (v.sizeBytes / 1048576).toFixed(1) + ' MB' : '') + '</small></div><span class="pill dur">Assegnato a ' + n + '</span></div>';
@@ -408,11 +436,28 @@ async function assign() {
   btn.disabled = false;
 }
 
+async function saveGroup() {
+  const name = $('#gnm').value.trim(), members = Object.keys(S.gSel).filter((id) => S.gSel[id]);
+  const m2 = $('#msg2'); const say = (t, ok) => { m2.textContent = t || ''; m2.className = 'msg' + (t ? (ok ? ' ok' : ' bad') : ''); };
+  if (!name) { say('Scrivi il nome del gruppo.'); return; }
+  if (!members.length) { say('Scegli almeno un giocatore.'); return; }
+  const list = S.groups.filter((g) => g.id !== S.gEdit);
+  list.push({ id: S.gEdit || ('g' + Date.now()), name, members });
+  list.sort((a, b) => a.name.localeCompare(b.name));
+  try { await updateDoc(doc(db, 'teams', S.teamId), { groups: list }); S.gEdit = null; S.gSel = {}; $('#gnm').value = ''; say('Gruppo salvato.', true); paint(); }
+  catch (er) { say(codeMsg(er)); }
+}
+async function deleteGroup(id, btn) {
+  if (btn.dataset.sure !== '1') { btn.dataset.sure = '1'; btn.textContent = 'Conferma elimina'; return; }
+  try { await updateDoc(doc(db, 'teams', S.teamId), { groups: S.groups.filter((g) => g.id !== id) }); } catch (er) { msg(codeMsg(er)); }
+}
+
 /* ---------- dati in tempo reale ---------- */
 function listen() {
   const q = (c) => query(collection(db, c), where('teamId', '==', S.teamId));
   const sub = (c, key) => onSnapshot(q(c), (snap) => { S[key] = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())); paint(); }, () => msg('Non riesco a leggere ' + c + '. Controlla le regole di sicurezza.'));
-  unsubs = [sub('users', 'players'), sub('videos', 'videos'), sub('assignments', 'assigns')];
+  unsubs = [sub('users', 'players'), sub('videos', 'videos'), sub('assignments', 'assigns'),
+    onSnapshot(doc(db, 'teams', S.teamId), (d) => { S.groups = (d.data() || {}).groups || []; paint(); }, () => {})];
 }
 onAuthStateChanged(auth, (u) => {
   unsubs.forEach((f) => f()); unsubs = [];
