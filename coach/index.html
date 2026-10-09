@@ -231,6 +231,7 @@ import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/13.
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 import { getFirestore, collection, query, where, onSnapshot, doc, setDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-functions.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQY6lXSXed5NEhpWAVpLqQhIUCyhh-Ntg",
@@ -333,7 +334,8 @@ function showMain() {
 }
 function paint() {
   const P = players();
-  if ($('#plist')) $('#plist').innerHTML = P.length ? P.map((p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.number ? ' · ' + esc(p.number) : '') + '</b><small>' + esc(p.email || '') + '</small></div></div>').join('') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  if ($('#plist')) $('#plist').innerHTML = P.length ? P.map((p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.number ? ' · ' + esc(p.number) : '') + '</b><small>' + esc(p.email || '') + '</small></div><div class="pills"><button class="btn" data-pd="' + p.id + '">Elimina</button></div></div>').join('') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  [].forEach.call(document.querySelectorAll('[data-pd]'), (b) => b.addEventListener('click', () => deletePlayer(b.dataset.pd, b)));
   if ($('#gmem')) {
     $('#gmem').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.gSel[p.id] ? ' on' : '') + '"><input type="checkbox" data-gm="' + p.id + '"' + (S.gSel[p.id] ? ' checked' : '') + '>' + esc(p.name) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
     [].forEach.call(document.querySelectorAll('[data-gm]'), (c) => c.addEventListener('change', () => { S.gSel[c.dataset.gm] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
@@ -448,6 +450,12 @@ async function saveGroup() {
   list.sort((a, b) => a.name.localeCompare(b.name));
   try { await updateDoc(doc(db, 'teams', S.teamId), { groups: list }); S.gEdit = null; S.gSel = {}; $('#gnm').value = ''; say('Gruppo salvato.', true); paint(); }
   catch (er) { say(codeMsg(er)); }
+}
+async function deletePlayer(id, btn) {
+  if (btn.dataset.sure !== '1') { btn.dataset.sure = '1'; btn.textContent = 'Conferma elimina'; return; }
+  btn.disabled = true; msg('Elimino…', true);
+  try { await httpsCallable(getFunctions(app, 'europe-west1'), 'eliminaGiocatore')({ uid: id }); msg('Giocatore eliminato.', true); }
+  catch (er) { msg('Non riesco a eliminare il giocatore. Riprova.'); btn.disabled = false; }
 }
 async function deleteGroup(id, btn) {
   if (btn.dataset.sure !== '1') { btn.dataset.sure = '1'; btn.textContent = 'Conferma elimina'; return; }

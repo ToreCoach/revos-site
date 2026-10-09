@@ -207,6 +207,10 @@
   a('Apri il pannello allenatore', 'Open the coach panel', 'Abrir el panel de entrenador', 'Ouvrir le panneau entraîneur');
   a('Sei un giocatore? Vai all’Area giocatori', 'Are you a player? Go to the Player area', '¿Eres jugador? Ve al Área de jugadores', 'Vous êtes joueur ? Allez à l’Espace joueurs');
 
+  a('Elimino…', 'Deleting…', 'Eliminando…', 'Suppression…');
+  a('Giocatore eliminato.', 'Player deleted.', 'Jugador eliminado.', 'Joueur supprimé.');
+  a('Non riesco a eliminare il giocatore. Riprova.', 'I can’t delete the player. Try again.', 'No puedo eliminar al jugador. Inténtalo de nuevo.', 'Impossible de supprimer le joueur. Réessayez.');
+
   /* ---------- frasi con numeri / testi variabili ---------- */
   var P = [];
   function p(re, fn) { P.push([re, fn]); }
