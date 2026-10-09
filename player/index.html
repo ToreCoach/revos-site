@@ -230,10 +230,11 @@ html, body { min-height: 100%; }
 </style>
 <div class="app"><div class="screen" id="screen"></div><nav class="pnav" id="nav" hidden aria-label="Navigazione"></nav><div class="ptoast" id="ptoast" role="status" aria-live="polite"></div></div>
 <script type="module">
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('firebase-messaging-sw.js').catch(() => {});
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
-import { getFirestore, collection, query, where, onSnapshot, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, onSnapshot, doc, getDoc, updateDoc, arrayUnion, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -261,7 +262,8 @@ const ICO = {
   redo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5"/></svg>'
 };
 
-const S = { user: null, profile: null, team: null, list: [], tab: 'home', filter: 'all', detail: null, err: '', info: '', loading: true, loaded: false, videoUrl: null, videoErr: '' };
+const VAPID = 'BLKa8x-pka20UKygmcY0K_f_FgF8kVgoqk6fe5azUrRw0Yb9C5wFV1R1SFhT2dS2bz5VCHh4PxbXrodYA1F5QcY';
+const S = { notifMsg: '', user: null, profile: null, team: null, list: [], tab: 'home', filter: 'all', detail: null, err: '', info: '', loading: true, loaded: false, videoUrl: null, videoErr: '' };
 let unsub = null;
 const $ = (s) => document.querySelector(s);
 const pad = (n) => (n < 10 ? '0' : '') + n;
@@ -324,8 +326,32 @@ function profile() {
   return logoHtml + '<div class="prof"><div class="avatar">' + esc((p.name || '?').split(' ').map((x) => x[0]).join('').slice(0, 2)) + '</div><div><h2>' + esc(p.name || '') + '</h2><p>' + esc((S.team && S.team.name) || '') + (p.number ? ' · Numero ' + esc(p.number) : '') + '</p></div></div>' +
     '<div class="stats"><div><b>' + m.length + '</b><span>Assegnati</span></div><div class="g"><b>' + seen + '</b><span>Visti</span></div><div class="r"><b>' + (m.length - seen) + '</b><span>Da vedere</span></div></div>' +
     '<div class="kv"><span>Ultima visualizzazione</span><b>' + (last ? fmtDT(last) : 'nessuna') + '</b></div>' +
+    notifBox() +
     '<p class="priv">Vedi solo i video che il tuo allenatore ha assegnato a te. Nessun altro giocatore vede i tuoi.</p>' +
     '<button class="btn wide" style="margin-top:18px" data-act="logout">' + ICO.out + 'Esci</button>';
+}
+function notifBox() {
+  const perm = typeof Notification === 'undefined' ? 'unsupported' : Notification.permission;
+  let body;
+  if (perm === 'unsupported') body = '<span>Per ricevere gli avvisi, aggiungi REVOS Player alla schermata Home e aprilo da lì.</span>';
+  else if (perm === 'denied') body = '<span>Le notifiche sono bloccate. Attivale dalle impostazioni del telefono per REVOS Player.</span>';
+  else if (perm === 'granted' && S.notifOn) body = '<span>Notifiche attive su questo telefono.</span>';
+  else body = '<span>Ricevi un avviso quando il tuo allenatore ti assegna un video.</span><button class="btn wide" style="margin-top:10px" data-act="notif">Attiva notifiche</button>';
+  return '<div class="priv" style="border-style:solid">' + body + (S.notifMsg ? '<br><small>' + esc(S.notifMsg) + '</small>' : '') + '</div>';
+}
+async function attivaNotifiche() {
+  S.notifMsg = '';
+  try {
+    if (!(await isSupported())) throw new Error('Questo browser non supporta le notifiche.');
+    if ((await Notification.requestPermission()) !== 'granted') throw new Error('Permesso non concesso.');
+    const reg = await navigator.serviceWorker.register('firebase-messaging-sw.js');
+    await navigator.serviceWorker.ready;
+    const token = await getToken(getMessaging(app), { vapidKey: VAPID, serviceWorkerRegistration: reg });
+    if (!token) throw new Error('Nessun token ricevuto.');
+    await updateDoc(doc(db, 'users', S.user), { fcmTokens: arrayUnion(token) });
+    S.notifOn = true;
+  } catch (e) { S.notifMsg = 'Non riesco ad attivarle: ' + (e && e.message ? e.message : e); }
+  render();
 }
 function detail() {
   const a = byId(S.detail);
@@ -393,6 +419,7 @@ document.addEventListener('click', async (e) => {
   else if (act === 'review') { const a = byId(S.detail); await setAssign(a.id, { status: 'review' }); }
   else if (act === 'fav') { const a = byId(S.detail); await setAssign(a.id, { favorite: !a.favorite }); }
   else if (act === 'logout') { await signOut(auth); }
+  else if (act === 'notif') { attivaNotifiche(); }
   else if (act === 'reset') {
     const em = ($('#lgEmail') || {}).value;
     if (!em) { S.err = 'Scrivi la tua email, poi tocca di nuovo “Password dimenticata?”.'; S.info = ''; render(); return; }
