@@ -222,9 +222,10 @@ select, .fld select { background: var(--bg2); border: 1px solid var(--line); bor
 [hidden] { display: none !important; }
 </style></head><body>
 <div class="cwrap">
-<div class="chead"><h1>REVOS <span>Coach</span></h1><div class="r"><span id="who"></span><button class="btn" id="out" hidden>Esci</button></div></div>
+<div class="chead"><h1>REVOS <span>Coach</span></h1><div class="r"><span id="rvlang"></span><span id="who"></span><button class="btn" id="out" hidden>Esci</button></div></div>
 <div id="app"><div class="empty">Caricamento…</div></div>
 </div>
+<script charset="utf-8" src="../rv-i18n.js"></script>
 <script type="module">
 import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
