@@ -1,0 +1,431 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REVOS Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap">
+<style>
+
+/* Layout: a sinistra il telefono del giocatore, a destra l'area coach di REVOS Analyst. Un'assegnazione a destra compare subito a sinistra. */
+:root {
+  --bg: #050F1F; --bg2: #08162e; --panel: #0b1d3a; --panel2: #102a50; --line: rgba(120, 190, 255, 0.16);
+  --fg: #eef3ff; --muted: #94a3c8; --lime: #8bfc03; --lime-d: #5ecb00; --on-lime: #04220f; --cy: #22d3ee;
+  --red: #ff5a6a; --blue: #5aa9ff; --gold: #ffc940; --ok: #3ddc84;
+  --f-disp: 'Barlow Condensed', 'Arial Narrow', sans-serif; --f-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 16px; line-height: 1.45; padding-inline: 16px; padding-block: 20px 40px; -webkit-font-smoothing: antialiased; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+h1, h2, h3, h4, p { margin: 0; }
+:focus-visible { outline: 2px solid var(--cy); outline-offset: 2px; border-radius: 6px; }
+.disp { font-family: var(--f-disp); text-transform: uppercase; letter-spacing: 0.02em; }
+
+.top { max-width: 1180px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+.top .brand { display: flex; align-items: center; gap: 12px; }
+.top .brand img { width: 38px; height: 38px; border-radius: 9px; }
+.top h1 { font-family: var(--f-disp); font-weight: 800; font-size: 28px; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; }
+.top h1 span { color: var(--lime); }
+.top .proto { color: var(--muted); font-size: 14px; }
+.mobtabs { display: none; max-width: 1180px; margin: 0 auto 16px; gap: 8px; }
+.mobtabs button { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg2); color: var(--muted); font-weight: 600; }
+.mobtabs button[aria-pressed="true"] { background: var(--lime); color: var(--on-lime); border-color: transparent; }
+
+.stage { display: grid; grid-template-columns: 392px minmax(0, 1fr); gap: 32px; max-width: 1180px; margin: 0 auto; align-items: start; }
+.cap { color: var(--muted); font-size: 14px; margin-top: 12px; max-width: 392px; }
+@media (max-width: 940px) {
+  .stage { grid-template-columns: minmax(0, 1fr); }
+  .mobtabs { display: flex; }
+  body.v-player .coachcol, body.v-coach .playercol { display: none; }
+  .playercol { display: flex; flex-direction: column; align-items: center; }
+}
+
+/* telefono */
+.phone { position: relative; width: 100%; max-width: 392px; height: clamp(600px, 84vh, 790px); display: flex; flex-direction: column; background: var(--bg); border: 1px solid rgba(160, 210, 255, 0.28); border-radius: 36px; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85), 0 0 0 6px #0a1428, 0 0 0 7px rgba(160, 210, 255, 0.14); }
+.screen { flex: 1; min-height: 0; overflow-y: auto; padding: 22px 18px 20px; scrollbar-width: none; }
+.screen::-webkit-scrollbar { display: none; }
+.pnav { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); background: var(--bg2); padding: 8px 6px 12px; }
+.pnav button { background: none; border: 0; display: grid; justify-items: center; gap: 3px; color: var(--muted); font-size: 12px; font-weight: 600; padding: 6px 0; letter-spacing: 0.02em; }
+.pnav button svg { width: 24px; height: 24px; }
+.pnav button[aria-current="true"] { color: var(--lime); }
+.pnav .bdg { position: absolute; margin: -4px 0 0 18px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--red); color: #fff; font-size: 11px; line-height: 16px; text-align: center; }
+.ptoast { position: absolute; left: 14px; right: 14px; top: 14px; padding: 12px 14px; border-radius: 12px; background: var(--panel2); border: 1px solid var(--lime); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); display: flex; gap: 10px; align-items: center; font-size: 14px; transform: translateY(-140%); transition: transform 0.35s ease; z-index: 5; }
+.ptoast.on { transform: none; }
+.ptoast b { display: block; }
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo img { width: 30px; height: 30px; border-radius: 8px; }
+.logo span { font-family: var(--f-disp); font-weight: 800; font-size: 24px; letter-spacing: 0.1em; }
+.logo span i { font-style: normal; color: var(--lime); }
+.hello { margin-top: 22px; font-family: var(--f-disp); font-weight: 800; font-size: 40px; line-height: 1; text-transform: uppercase; }
+.hello small { display: block; font-family: var(--f-body); font-weight: 500; font-size: 15px; color: var(--muted); text-transform: none; letter-spacing: 0; margin-top: 8px; }
+.todo { margin-top: 20px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255, 90, 106, 0.5); background: linear-gradient(135deg, rgba(255, 90, 106, 0.2), rgba(255, 90, 106, 0.05)); }
+.todo.none { border-color: var(--line); background: var(--bg2); }
+.todo .n { font-family: var(--f-disp); font-weight: 800; font-size: 46px; line-height: 0.9; color: var(--red); min-width: 34px; text-align: center; }
+.todo.none .n { color: var(--ok); }
+.todo b { font-family: var(--f-disp); font-size: 20px; text-transform: uppercase; letter-spacing: 0.03em; display: block; }
+.todo span { color: var(--muted); font-size: 14px; }
+.todo svg { margin-left: auto; width: 20px; height: 20px; color: var(--muted); flex: none; }
+.sec { margin-top: 26px; font-family: var(--f-disp); font-weight: 700; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cy); }
+.list { display: grid; gap: 10px; margin-top: 12px; }
+.vrow { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: center; text-align: left; width: 100%; padding: 8px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg2); }
+.vrow:hover { border-color: var(--cy); }
+.thumb { position: relative; aspect-ratio: 16 / 10; border-radius: 9px; overflow: hidden; background: #0a2a45; }
+.thumb svg.c { position: absolute; inset: 0; width: 100%; height: 100%; }
+.thumb .pl { position: absolute; inset: 0; display: grid; place-items: center; }
+.thumb .pl i { width: 26px; height: 26px; border-radius: 50%; background: rgba(5, 15, 31, 0.7); display: grid; place-items: center; }
+.thumb .pl svg { width: 12px; height: 12px; color: var(--lime); margin-left: 2px; }
+.vrow h4 { font-family: var(--f-disp); font-size: 21px; font-weight: 700; text-transform: uppercase; line-height: 1.05; }
+.vrow .m { color: var(--muted); font-size: 14px; margin-top: 2px; overflow-wrap: anywhere; }
+.vrow .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--line); }
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill svg { width: 12px; height: 12px; }
+.pill.new { color: var(--red); border-color: rgba(255, 90, 106, 0.5); }
+.pill.seen { color: var(--ok); border-color: rgba(61, 220, 132, 0.45); }
+.pill.rev { color: var(--blue); border-color: rgba(90, 169, 255, 0.5); }
+.pill.imp { color: var(--gold); border-color: rgba(255, 201, 64, 0.5); }
+.pill.dur { color: var(--muted); }
+.ptitle { font-family: var(--f-disp); font-weight: 800; font-size: 34px; text-transform: uppercase; line-height: 1; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chips button { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg2); color: var(--muted); font-size: 14px; font-weight: 600; }
+.chips button[aria-pressed="true"] { background: var(--lime); color: var(--on-lime); border-color: transparent; }
+.empty { margin-top: 24px; padding: 22px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
+
+/* dettaglio video */
+.back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-weight: 600; padding: 4px 0; }
+.back svg { width: 18px; height: 18px; }
+.player { position: relative; margin-top: 10px; border-radius: 14px; overflow: hidden; background: #08223b; border: 1px solid var(--line); }
+.player svg.court { display: block; width: 100%; height: auto; }
+.player .big { position: absolute; inset: 0 0 38px 0; display: grid; place-items: center; background: transparent; border: 0; }
+.player .big i { width: 58px; height: 58px; border-radius: 50%; background: rgba(5, 15, 31, 0.72); border: 1px solid var(--lime); display: grid; place-items: center; }
+.player .big svg { width: 24px; height: 24px; color: var(--lime); margin-left: 3px; }
+.player .big.hid { opacity: 0; pointer-events: none; }
+.ctl { display: flex; align-items: center; gap: 10px; padding: 6px 12px 8px; background: rgba(5, 15, 31, 0.85); }
+.ctl button { background: none; border: 0; padding: 0; width: 26px; height: 26px; color: var(--lime); }
+.ctl button svg { width: 24px; height: 24px; }
+.ctl input[type=range] { flex: 1; min-width: 0; accent-color: var(--lime); }
+.ctl time { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--muted); }
+.meta { margin-top: 14px; }
+.meta .m { color: var(--muted); font-size: 15px; margin-top: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.tags span { padding: 3px 11px; border-radius: 6px; background: rgba(34, 211, 238, 0.12); color: var(--cy); font-size: 14px; font-weight: 600; }
+.note { margin-top: 18px; padding: 14px 16px; border-radius: 14px; background: var(--bg2); border-left: 3px solid var(--lime); }
+.note h5 { margin: 0 0 6px; font-family: var(--f-disp); font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lime); font-weight: 700; }
+.note p { font-size: 17px; }
+.note.empty-n p { color: var(--muted); font-size: 15px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); padding: 12px 18px; font-weight: 600; }
+.btn:hover { border-color: var(--cy); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-lime { background: linear-gradient(180deg, var(--lime), var(--lime-d)); color: var(--on-lime); border-color: transparent; box-shadow: 0 0 26px rgba(139, 252, 3, 0.25); font-weight: 700; letter-spacing: 0.02em; }
+.btn-lime:hover { border-color: transparent; filter: brightness(1.07); }
+.btn.wide { width: 100%; padding: 15px 18px; font-size: 17px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.seenbox { margin-top: 18px; padding: 14px; border-radius: 14px; border: 1px solid rgba(61, 220, 132, 0.45); background: rgba(61, 220, 132, 0.08); display: flex; align-items: center; gap: 12px; }
+.seenbox svg { width: 26px; height: 26px; color: var(--ok); flex: none; }
+.seenbox b { display: block; }
+.seenbox span { color: var(--muted); font-size: 14px; }
+.btn.on { border-color: var(--gold); color: var(--gold); }
+
+/* login e profilo */
+.login h2 { font-family: var(--f-disp); font-weight: 800; font-size: 44px; text-transform: uppercase; line-height: 0.95; margin-top: 46px; }
+.login p.s { color: var(--muted); margin-top: 10px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; margin-top: 22px; border-radius: 12px; background: var(--bg2); border: 1px solid var(--line); }
+.seg button { border: 0; background: none; padding: 9px; border-radius: 9px; color: var(--muted); font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--panel2); color: var(--fg); }
+.fld { display: grid; gap: 6px; margin-top: 14px; }
+.fld label { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.fld input, .fld textarea { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; width: 100%; }
+.fld input:focus, .fld textarea:focus { border-color: var(--cy); outline: none; }
+.err { color: var(--red); font-size: 14px; margin-top: 10px; min-height: 20px; }
+.demo { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.demo .chips { margin-top: 10px; }
+.avatar { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--panel2), var(--panel)); border: 2px solid var(--lime); font-family: var(--f-disp); font-weight: 800; font-size: 34px; }
+.prof { display: flex; align-items: center; gap: 16px; margin-top: 14px; }
+.prof h2 { font-family: var(--f-disp); font-weight: 800; font-size: 32px; text-transform: uppercase; line-height: 1; }
+.prof p { color: var(--muted); margin-top: 4px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 22px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.stats div { background: var(--bg2); padding: 14px 8px; text-align: center; }
+.stats b { display: block; font-family: var(--f-disp); font-size: 38px; line-height: 1; font-weight: 800; }
+.stats span { color: var(--muted); font-size: 13px; }
+.stats .g b { color: var(--ok); } .stats .r b { color: var(--red); }
+.kv { margin-top: 18px; display: grid; gap: 4px; color: var(--muted); font-size: 15px; }
+.kv b { color: var(--fg); font-weight: 600; }
+.priv { margin-top: 18px; font-size: 14px; color: var(--muted); padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--line); }
+
+/* area coach */
+.coachcol { display: grid; gap: 18px; }
+.cbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cbar h2 { font-family: var(--f-disp); font-weight: 800; font-size: 34px; text-transform: uppercase; line-height: 1; }
+.cbar .tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-disp); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cy); font-size: 14px; }
+.cbar .tag::before { content: ""; width: 24px; height: 2px; background: var(--cy); }
+.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px 20px; }
+.card h3 { font-family: var(--f-disp); font-weight: 700; font-size: 22px; text-transform: uppercase; letter-spacing: 0.03em; }
+.card .hint { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.act { display: grid; gap: 4px; margin-top: 14px; }
+.arow { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) auto; gap: 14px; align-items: center; padding: 10px 12px; border-radius: 12px; border: 1px solid transparent; background: transparent; text-align: left; width: 100%; }
+.arow:hover { background: rgba(255, 255, 255, 0.03); }
+.arow[aria-current="true"] { border-color: var(--lime); background: rgba(139, 252, 3, 0.05); }
+.arow b { font-weight: 600; display: block; }
+.arow small { color: var(--muted); font-size: 13px; }
+.bar { height: 9px; border-radius: 5px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cy), var(--lime)); border-radius: 5px; }
+.arow .pc { font-family: var(--f-disp); font-size: 22px; font-weight: 700; min-width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .arow { grid-template-columns: minmax(0, 1fr) auto; } .arow .barw { grid-column: 1 / -1; order: 3; } }
+.sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.sum div { padding: 12px 14px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+.sum b { font-family: var(--f-disp); font-size: 34px; line-height: 1; display: block; font-weight: 800; }
+.sum span { font-size: 13px; color: var(--muted); }
+.sum .g b { color: var(--ok); } .sum .r b { color: var(--red); }
+.crow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.crow:first-child { border-top: 0; }
+.crow .t { min-width: 0; }
+.crow .t b { font-weight: 600; }
+.crow .t small { display: block; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.crow .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.form { display: grid; gap: 4px; margin-top: 12px; }
+.chk { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+.chk input { accent-color: var(--lime); width: 18px; height: 18px; flex: none; }
+.chk small { color: var(--muted); margin-left: auto; font-size: 13px; text-align: right; }
+.chk.on { border-color: var(--lime); }
+.fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 600px) { .fgrid { grid-template-columns: 1fr; } }
+.flab { margin: 14px 0 6px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.fact { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.ctoast { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--lime); background: rgba(139, 252, 3, 0.08); }
+.ctoast[hidden] { display: none; }
+.shared { margin-top: 12px; display: grid; gap: 0; }
+@media (prefers-reduced-motion: reduce) { .ptoast { transition: none; } }
+.cwrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+.chead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0 18px; }
+.chead h1 { font-family: var(--f-disp); font-size: 26px; text-transform: uppercase; letter-spacing: 0.04em; }
+.chead h1 span { color: var(--lime); }
+.chead .r { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; min-width: 0; }
+.chead .r #who { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40vw; }
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; }
+.tabs button { flex: 1; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg2); color: var(--muted); font-weight: 600; white-space: nowrap; }
+.tabs button[aria-selected="true"] { background: var(--lime); color: var(--on-lime); border-color: transparent; }
+.narrow { max-width: 440px; margin: 24px auto; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+.fld.full, .full { grid-column: 1 / -1; }
+.card + .card { margin-top: 16px; }
+.msg { margin-top: 12px; font-size: 14px; min-height: 0; }
+.msg.bad { color: var(--red); }
+.msg.ok { color: var(--ok); }
+.or { text-align: center; color: var(--muted); margin: 12px 0; font-size: 13px; }
+.barw { margin-top: 10px; }
+.flab { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin: 14px 0 6px; }
+.fact { color: var(--muted); font-size: 13px; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+select, .fld select { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; width: 100%; color: inherit; }
+@media (max-width: 640px) { .grid2, .fgrid { grid-template-columns: minmax(0, 1fr); } .chead h1 { font-size: 21px; } }
+</style></head><body>
+<div class="cwrap">
+<div class="chead"><h1>REVOS <span>Coach</span></h1><div class="r"><span id="who"></span><button class="btn" id="out" hidden>Esci</button></div></div>
+<div id="app"><div class="empty">Caricamento…</div></div>
+</div>
+<script type="module">
+import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { getFirestore, collection, query, where, onSnapshot, doc, setDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQY6lXSXed5NEhpWAVpLqQhIUCyhh-Ntg",
+  authDomain: "handball-analyst-app.firebaseapp.com",
+  projectId: "handball-analyst-app",
+  storageBucket: "handball-analyst-app.firebasestorage.app",
+  messagingSenderId: "1021442407572",
+  appId: "1:1021442407572:web:af75ca6eb89a3ead104881"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app), db = getFirestore(app), storage = getStorage(app);
+
+const S = { user: null, profile: null, teamId: null, team: null, players: [], videos: [], assigns: [], tab: 'att', selP: {}, selV: {}, loading: true, err: '' };
+let unsubs = [];
+const $ = (s) => document.querySelector(s);
+const pad = (n) => (n < 10 ? '0' : '') + n;
+const dt = (x) => (x ? (x.toDate ? x.toDate() : new Date(x)) : null);
+const fmtDT = (x) => { const d = dt(x); return d ? pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' – ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) : 'nessuna'; };
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const players = () => S.players.filter((u) => u.role === 'player').sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+const ICO_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+function pill(a) {
+  return (a.important ? '<span class="pill imp">★ Importante</span>' : '') + (a.status === 'seen' ? '<span class="pill seen">' + ICO_CHECK + 'Visto</span>' : a.status === 'review' ? '<span class="pill rev"><i></i>Da rivedere</span>' : '<span class="pill new"><i></i>Nuovo</span>');
+}
+function msg(t, ok) { const el = $('#msg'); if (!el) return; el.textContent = t || ''; el.className = 'msg' + (t ? (ok ? ' ok' : ' bad') : ''); }
+function codeMsg(e) {
+  const c = (e && e.code) || '';
+  if (/permission-denied|unauthorized/.test(c)) return 'Permesso negato dalle regole di sicurezza. Controlla di essere entrato come coach.';
+  if (/email-already-in-use/.test(c)) return 'Esiste già un account con questa email.';
+  if (/weak-password/.test(c)) return 'La password deve avere almeno 6 caratteri.';
+  if (/invalid-email/.test(c)) return 'Email non valida.';
+  if (/network/.test(c)) return 'Nessuna connessione. Riprova.';
+  return 'Qualcosa non è andato a buon fine' + (c ? ' (' + c + ')' : '') + '.';
+}
+
+/* ---------- accesso e squadra ---------- */
+function showLogin() {
+  $('#app').innerHTML = '<div class="card narrow"><h2 class="disp">Accedi come coach</h2><p class="hint">Usa lo stesso account che usi in REVOS Analyst.</p>' +
+    '<form id="lg"><div class="fld"><label for="lgE">Email</label><input id="lgE" type="email" autocomplete="username" required></div><div class="fld"><label for="lgP">Password</label><input id="lgP" type="password" autocomplete="current-password" required></div>' +
+    '<p class="msg bad" id="msg">' + esc(S.err) + '</p><button class="btn btn-lime wide" type="submit">Entra</button></form>' +
+    '<div class="or">oppure</div><button class="btn wide" id="gBtn" type="button">Accedi con Google</button></div>';
+  $('#lg').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try { await signInWithEmailAndPassword(auth, $('#lgE').value.trim(), $('#lgP').value); } catch (er) { msg('Email o password non corrette.'); }
+  });
+  $('#gBtn').addEventListener('click', async () => {
+    try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch (er) { msg(/popup|unauthorized-domain/.test(er.code || '') ? 'Accesso Google non permesso da questo indirizzo. Aggiungilo nei domini autorizzati di Firebase.' : codeMsg(er)); }
+  });
+}
+function showSetup() {
+  $('#app').innerHTML = '<div class="card narrow"><h2 class="disp">Crea la tua squadra</h2><p class="hint">Si fa una volta sola. Poi aggiungi i giocatori e assegni i video.</p>' +
+    '<form id="su"><div class="fld"><label for="suT">Nome squadra</label><input id="suT" placeholder="Pallamano Modena" required></div><div class="fld"><label for="suN">Il tuo nome</label><input id="suN" placeholder="Salvatore Onelli" required></div>' +
+    '<p class="msg" id="msg"></p><button class="btn btn-lime wide" type="submit">Crea squadra</button></form></div>';
+  $('#su').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = $('#suT').value.trim(), me = $('#suN').value.trim();
+    const teamId = 'team-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24) + '-' + Math.random().toString(36).slice(2, 7);
+    try {
+      await setDoc(doc(db, 'users', S.user.uid), { role: 'coach', name: me, email: S.user.email || '', teamId, createdAt: serverTimestamp() });
+      await setDoc(doc(db, 'teams', teamId), { name, ownerUid: S.user.uid, createdAt: serverTimestamp() });
+      location.reload();
+    } catch (er) { msg(codeMsg(er)); }
+  });
+}
+
+/* ---------- pagina principale ---------- */
+function showMain() {
+  $('#app').innerHTML = '<div class="tabs" role="tablist">' + [['att', 'Attività'], ['ass', 'Assegna'], ['vid', 'Video'], ['gio', 'Giocatori']].map((t) => '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (S.tab === t[0]) + '">' + t[1] + '</button>').join('') + '</div><div id="main"></div>';
+  [].forEach.call(document.querySelectorAll('[data-tab]'), (b) => b.addEventListener('click', () => { S.tab = b.dataset.tab; showMain(); }));
+  const m = $('#main');
+  if (S.tab === 'gio') {
+    m.innerHTML = '<div class="card"><h3 class="disp">Nuovo giocatore</h3><p class="hint">Crea l’accesso del giocatore: poi gli comunichi email e password.</p>' +
+      '<form id="gf" class="grid2"><div class="fld"><label for="gN">Nome e cognome</label><input id="gN" required></div><div class="fld"><label for="gNum">Numero</label><input id="gNum" inputmode="numeric" placeholder="7"></div>' +
+      '<div class="fld"><label for="gE">Email</label><input id="gE" type="email" required></div><div class="fld"><label for="gP">Password (min. 6)</label><input id="gP" type="text" minlength="6" required></div>' +
+      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">I tuoi giocatori</h3><div id="plist"></div></div>';
+    $('#gf').addEventListener('submit', addPlayer);
+  } else if (S.tab === 'vid') {
+    m.innerHTML = '<div class="card"><h3 class="disp">Carica un video</h3><p class="hint">Un file MP4 (un clip o un’esportazione di REVOS Analyst). Resta archiviato una volta sola.</p>' +
+      '<form id="vf" class="grid2"><div class="fld full"><label for="vFile">File video</label><input id="vFile" type="file" accept="video/*" required></div>' +
+      '<div class="fld"><label for="vT">Titolo</label><input id="vT" placeholder="Germania" required></div><div class="fld"><label for="vM">Partita o allenamento</label><input id="vM" placeholder="Modena – Cassano"></div>' +
+      '<div class="fld"><label for="vD">Data</label><input id="vD" type="date"></div><div class="fld"><label for="vTags">Tag (separati da virgola)</label><input id="vTags" placeholder="Germania, Attacco"></div>' +
+      '<div class="full"><div class="bar" id="vBar" hidden><i style="width:0"></i></div><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit" id="vBtn">Carica</button></div></form></div><div class="card"><h3 class="disp">La tua libreria</h3><div id="vlist"></div></div>';
+    $('#vD').value = new Date().toISOString().slice(0, 10);
+    $('#vFile').addEventListener('change', () => { const f = $('#vFile').files[0]; if (f && !$('#vT').value) $('#vT').value = f.name.replace(/\.[^.]+$/, ''); });
+    $('#vf').addEventListener('submit', uploadVideo);
+  } else if (S.tab === 'ass') {
+    m.innerHTML = '<div class="card"><h3 class="disp">Assegna video</h3><p class="hint">Scegli i video e i giocatori. Ogni giocatore vedrà solo quello che gli assegni.</p><div class="flab">Video</div><div id="aV" class="form"></div><div class="flab">Giocatori</div><div id="aP" class="fgrid"></div>' +
+      '<div class="flab"><label for="aN">Nota dell’allenatore</label></div><div class="fld" style="margin-top:0"><textarea id="aN" rows="3" placeholder="Guarda soprattutto il timing dell’uscita…"></textarea></div>' +
+      '<label class="chk" style="margin-top:10px"><input type="checkbox" id="aI">Segna come importante</label><p class="msg" id="msg"></p><div class="fact"><button class="btn btn-lime" id="aGo">Assegna</button></div></div>';
+    $('#aGo').addEventListener('click', assign);
+  } else {
+    m.innerHTML = '<div class="card"><h3 class="disp">Attività dei giocatori</h3><p class="hint">Quanto i giocatori usano i video che assegni.</p><div id="act"></div></div><div class="card"><h3 class="disp">Stato per video</h3><div id="perv"></div></div>';
+  }
+  paint();
+}
+function paint() {
+  const P = players();
+  if ($('#plist')) $('#plist').innerHTML = P.length ? P.map((p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.number ? ' · ' + esc(p.number) : '') + '</b><small>' + esc(p.email || '') + '</small></div></div>').join('') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  if ($('#vlist')) $('#vlist').innerHTML = S.videos.length ? S.videos.slice().sort((a, b) => ((dt(b.createdAt) || 0) - (dt(a.createdAt) || 0))).map((v) => {
+    const n = S.assigns.filter((a) => a.videoId === v.id).length;
+    return '<div class="crow"><div class="t"><b>' + esc(v.title) + '</b><small>' + esc(v.match || '') + ' · ' + Math.round(v.durationSec || 0) + ' sec · ' + (v.sizeBytes ? (v.sizeBytes / 1048576).toFixed(1) + ' MB' : '') + '</small></div><span class="pill dur">Assegnato a ' + n + '</span></div>';
+  }).join('') : '<div class="empty">Ancora nessun video caricato.</div>';
+  if ($('#aV')) {
+    $('#aV').innerHTML = S.videos.length ? S.videos.map((v) => '<label class="chk' + (S.selV[v.id] ? ' on' : '') + '"><input type="checkbox" data-v="' + v.id + '"' + (S.selV[v.id] ? ' checked' : '') + '><b style="font-weight:600">' + esc(v.title) + '</b><small>' + esc(v.match || '') + ' · ' + Math.round(v.durationSec || 0) + ' sec</small></label>').join('') : '<div class="empty">Carica prima un video nella scheda Video.</div>';
+    $('#aP').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.selP[p.id] ? ' on' : '') + '"><input type="checkbox" data-p="' + p.id + '"' + (S.selP[p.id] ? ' checked' : '') + '>' + esc(p.name) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
+    [].forEach.call(document.querySelectorAll('[data-v]'), (c) => c.addEventListener('change', () => { S.selV[c.dataset.v] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
+    [].forEach.call(document.querySelectorAll('[data-p]'), (c) => c.addEventListener('change', () => { S.selP[c.dataset.p] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
+  }
+  if ($('#act')) {
+    $('#act').innerHTML = P.length ? P.map((p) => {
+      const m = S.assigns.filter((a) => a.playerId === p.id), seen = m.filter((a) => a.status === 'seen').length, pc = m.length ? Math.round(seen * 100 / m.length) : 0;
+      const last = m.map((a) => dt(a.viewedAt)).filter(Boolean).sort((x, y) => y - x)[0];
+      return '<div class="arow"><div><b>' + esc(p.name) + '</b><small>' + seen + ' di ' + m.length + ' visti · ultima visione: ' + fmtDT(last) + '</small></div><div class="barw"><div class="bar"><i style="width:' + pc + '%"></i></div></div><span class="pc">' + pc + '%</span></div>';
+    }).join('') : '<div class="empty">Aggiungi i giocatori nella scheda Giocatori.</div>';
+  }
+  if ($('#perv')) {
+    $('#perv').innerHTML = S.videos.length ? S.videos.map((v) => {
+      const as = S.assigns.filter((a) => a.videoId === v.id);
+      return '<div class="crow"><div class="t"><b>' + esc(v.title) + '</b><small>' + esc(v.match || '') + '</small></div><div class="pills">' + (as.length ? as.map((a) => { const p = S.players.filter((u) => u.id === a.playerId)[0]; return '<span class="pill ' + (a.status === 'seen' ? 'seen' : a.status === 'review' ? 'rev' : 'new') + '">' + (a.status === 'seen' ? ICO_CHECK : '<i></i>') + esc(p ? p.name.split(' ')[0] : '?') + '</span>'; }).join('') : '<span class="pill dur">Non assegnato</span>') + '</div></div>';
+    }).join('') : '<div class="empty">Nessun video.</div>';
+  }
+}
+
+/* ---------- azioni ---------- */
+async function addPlayer(e) {
+  e.preventDefault();
+  const name = $('#gN').value.trim(), number = $('#gNum').value.trim(), email = $('#gE').value.trim(), pw = $('#gP').value;
+  msg('Creo l’accesso…', true);
+  let sec;
+  try {
+    sec = initializeApp(firebaseConfig, 'sec' + Date.now());
+    const sa = getAuth(sec);
+    const cred = await createUserWithEmailAndPassword(sa, email, pw);
+    await setDoc(doc(db, 'users', cred.user.uid), { role: 'player', name, number, email, teamId: S.teamId, createdAt: serverTimestamp() });
+    await signOut(sa);
+    msg('Giocatore creato. Comunicagli email e password: ' + email + ' / ' + pw, true);
+    $('#gf').reset();
+  } catch (er) { msg(codeMsg(er)); }
+  if (sec) deleteApp(sec).catch(() => {});
+}
+function readDuration(file) {
+  return new Promise((res) => {
+    const v = document.createElement('video'), u = URL.createObjectURL(file);
+    v.preload = 'metadata'; v.onloadedmetadata = () => { res(v.duration || 0); URL.revokeObjectURL(u); }; v.onerror = () => { res(0); URL.revokeObjectURL(u); }; v.src = u;
+  });
+}
+async function uploadVideo(e) {
+  e.preventDefault();
+  const file = $('#vFile').files[0]; if (!file) return;
+  const btn = $('#vBtn'), bar = $('#vBar'); btn.disabled = true; bar.hidden = false; msg('Carico il video…', true);
+  try {
+    const id = doc(collection(db, 'videos')).id, path = 'videos/' + S.teamId + '/' + id;
+    const dur = await readDuration(file);
+    const task = uploadBytesResumable(ref(storage, path), file, { contentType: file.type || 'video/mp4' });
+    await new Promise((res, rej) => task.on('state_changed', (s) => { bar.firstChild.style.width = Math.round(s.bytesTransferred * 100 / s.totalBytes) + '%'; }, rej, res));
+    const tags = $('#vTags').value.split(',').map((t) => t.trim()).filter(Boolean);
+    await setDoc(doc(db, 'videos', id), { teamId: S.teamId, title: $('#vT').value.trim(), match: $('#vM').value.trim(), matchDate: $('#vD').value, tags, durationSec: Math.round(dur * 10) / 10, storagePath: path, coachId: S.user.uid, sizeBytes: file.size, createdAt: serverTimestamp() });
+    msg('Video caricato. Ora puoi assegnarlo.', true); $('#vf').reset(); $('#vD').value = new Date().toISOString().slice(0, 10);
+  } catch (er) { msg(codeMsg(er)); }
+  btn.disabled = false; bar.hidden = true; bar.firstChild.style.width = '0';
+}
+async function assign() {
+  const vs = S.videos.filter((v) => S.selV[v.id]), ps = players().filter((p) => S.selP[p.id]);
+  if (!vs.length || !ps.length) { msg('Scegli almeno un video e un giocatore.'); return; }
+  const note = $('#aN').value.trim(), imp = $('#aI').checked, btn = $('#aGo'); btn.disabled = true; msg('Assegno…', true);
+  let added = 0, upd = 0;
+  try {
+    for (const p of ps) for (const v of vs) {
+      const id = v.id + '_' + p.id, ex = S.assigns.filter((a) => a.id === id)[0];
+      if (ex) { await updateDoc(doc(db, 'assignments', id), { note: note || ex.note || '', important: imp || !!ex.important }); upd++; continue; }
+      await setDoc(doc(db, 'assignments', id), { videoId: v.id, teamId: S.teamId, playerId: p.id, coachId: S.user.uid, title: v.title, match: v.match || '', matchDate: v.matchDate || '', tags: v.tags || [], durationSec: v.durationSec || 0, storagePath: v.storagePath, note, important: imp, status: 'new', assignedAt: serverTimestamp(), viewedAt: null, favorite: false });
+      added++;
+    }
+    msg('Assegnati ' + added + ' video' + (upd ? ' (' + upd + ' già assegnati: nota aggiornata)' : '') + '.', true);
+    S.selV = {}; S.selP = {}; $('#aN').value = ''; $('#aI').checked = false; paint();
+  } catch (er) { msg(codeMsg(er)); }
+  btn.disabled = false;
+}
+
+/* ---------- dati in tempo reale ---------- */
+function listen() {
+  const q = (c) => query(collection(db, c), where('teamId', '==', S.teamId));
+  const sub = (c, key) => onSnapshot(q(c), (snap) => { S[key] = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())); paint(); }, () => msg('Non riesco a leggere ' + c + '. Controlla le regole di sicurezza.'));
+  unsubs = [sub('users', 'players'), sub('videos', 'videos'), sub('assignments', 'assigns')];
+}
+onAuthStateChanged(auth, (u) => {
+  unsubs.forEach((f) => f()); unsubs = [];
+  $('#who').textContent = u ? (u.email || '') : ''; $('#out').hidden = !u;
+  if (!u) { S.user = null; showLogin(); return; }
+  S.user = u;
+  const stop = onSnapshot(doc(db, 'users', u.uid), (d) => {
+    stop();
+    if (!d.exists()) { showSetup(); return; }
+    S.profile = d.data();
+    if (S.profile.role !== 'coach') { $('#app').innerHTML = '<div class="card narrow"><h2 class="disp">Account giocatore</h2><p class="hint">Questo accesso è per gli allenatori. Usa REVOS Player.</p></div>'; return; }
+    S.teamId = S.profile.teamId; listen(); showMain();
+  }, () => showSetup());
+});
+$('#out').addEventListener('click', () => signOut(auth));
+</script></body></html>
