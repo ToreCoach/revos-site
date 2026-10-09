@@ -2,6 +2,7 @@
    Traduce i nodi di testo e gli attributi (placeholder, title, aria-label) anche quando l'app li ridisegna. */
 (function () {
   'use strict';
+  (function(){var d=document.documentElement,s=document.createElement('style');s.textContent='html.rv-fs .wrap{padding-top:112px}';(document.head||document.documentElement).appendChild(s);function f(){var fs=innerWidth>=900&&innerHeight>=screen.height-2&&innerWidth>=screen.width-2;d.classList.toggle('rv-fs',fs)}f();addEventListener('resize',f)})();
   var LANGS = ['it', 'en', 'es', 'fr'];
   var D = Object.create(null);
   function a(it, en, es, fr) { D[it] = [en, es, fr]; }
@@ -310,4 +311,16 @@
     }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTR });
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+
+/* schermo intero (Mac/F11): la barra del browser copre la cima della pagina → spazio extra in alto */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = 'html.rvfs body:not(.rvnofs){padding-top:112px!important}';
+  (document.head || document.documentElement).appendChild(st);
+  function chk() {
+    var fs = window.innerHeight >= screen.height - 2 && window.innerWidth >= screen.width - 2;
+    document.documentElement.classList.toggle('rvfs', fs && !document.querySelector('.app'));
+  }
+  chk(); window.addEventListener('resize', chk);
 })();

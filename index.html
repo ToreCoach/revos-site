@@ -291,3 +291,17 @@ footer a:hover { color: var(--fg); }
   set(l);
 })();
 </script>
+
+<script>
+/* schermo intero (Mac/F11): la barra del browser copre la cima della pagina → spazio extra in alto */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = 'html.rvfs body:not(.rvnofs){padding-top:112px!important}';
+  (document.head || document.documentElement).appendChild(st);
+  function chk() {
+    var fs = window.innerHeight >= screen.height - 2 && window.innerWidth >= screen.width - 2;
+    document.documentElement.classList.toggle('rvfs', fs && !document.querySelector('.app'));
+  }
+  chk(); window.addEventListener('resize', chk);
+})();
+</script>
