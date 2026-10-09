@@ -229,6 +229,7 @@ html, body { min-height: 100%; }
 @media (max-width: 559px) { body { padding-inline: 0; padding-block: env(safe-area-inset-top, 0px) 0; } .app { min-height: 100dvh; } .screen { padding-top: 24px; } }
 </style>
 <div class="app"><div class="screen" id="screen"></div><nav class="pnav" id="nav" hidden aria-label="Navigazione"></nav><div class="ptoast" id="ptoast" role="status" aria-live="polite"></div></div>
+<script charset="utf-8" src="../rv-i18n.js"></script>
 <script type="module">
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('firebase-messaging-sw.js').catch(() => {});
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
@@ -300,7 +301,7 @@ function login() {
     '<div class="fld"><label for="lgPass">Password</label><input id="lgPass" type="password" autocomplete="current-password" placeholder="Password" required></div>' +
     '<p class="err" id="lgErr" role="alert">' + esc(S.err) + '</p><p class="okm" id="lgInfo">' + esc(S.info) + '</p>' +
     '<button class="btn btn-lime wide" type="submit" id="lgBtn">Entra</button></form>' +
-    '<button class="linkbtn" data-act="reset" type="button">Password dimenticata?</button></div>';
+    '<button class="linkbtn" data-act="reset" type="button">Password dimenticata?</button><div id="rvlang" style="margin-top:18px"></div></div>';
 }
 function home() {
   const m = sorted(), n = toWatch(m).length, first = ((S.profile && S.profile.name) || '').split(' ')[0] || '';
@@ -329,6 +330,7 @@ function profile() {
     notifBox() +
     '<div id="pwBox" style="margin-top:14px"><button class="btn wide" data-act="pw">Cambia password</button></div>' +
     '<p class="priv">Vedi solo i video che il tuo allenatore ha assegnato a te. Nessun altro giocatore vede i tuoi.</p>' +
+    '<div id="rvlang" style="margin-top:18px"></div>' +
     '<button class="btn wide" style="margin-top:18px" data-act="logout">' + ICO.out + 'Esci</button>';
 }
 function notifBox() {
