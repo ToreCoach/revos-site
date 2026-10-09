@@ -219,6 +219,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .pills { display: flex; gap: 6px; flex-wrap: wrap; }
 select, .fld select { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; width: 100%; color: inherit; }
 @media (max-width: 640px) { .grid2, .fgrid { grid-template-columns: minmax(0, 1fr); } .chead h1 { font-size: 21px; } }
+[hidden] { display: none !important; }
 </style></head><body>
 <div class="cwrap">
 <div class="chead"><h1>REVOS <span>Coach</span></h1><div class="r"><span id="who"></span><button class="btn" id="out" hidden>Esci</button></div></div>
@@ -341,7 +342,7 @@ function paint() {
   if ($('#glist')) {
     $('#glist').innerHTML = S.groups.length ? S.groups.map((g) => {
       const n = (g.members || []).filter((id) => P.some((p) => p.id === id)).length;
-      return '<div class="crow"><div class="t"><b>' + esc(g.name) + '</b><small>' + n + ' giocatori</small></div><div class="pills"><button class="btn" data-ge="' + g.id + '">Modifica</button><button class="btn" data-gd="' + g.id + '">Elimina</button></div></div>';
+      return '<div class="crow"><div class="t"><b>' + esc(g.name) + '</b><small>' + n + (n === 1 ? ' giocatore' : ' giocatori') + '</small></div><div class="pills"><button class="btn" data-ge="' + g.id + '">Modifica</button><button class="btn" data-gd="' + g.id + '">Elimina</button></div></div>';
     }).join('') : '<div class="empty">Nessun gruppo ancora.</div>';
     [].forEach.call(document.querySelectorAll('[data-ge]'), (b) => b.addEventListener('click', () => {
       const g = S.groups.filter((x) => x.id === b.dataset.ge)[0]; if (!g) return;
