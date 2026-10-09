@@ -36,6 +36,8 @@ nav img { height: 34px; width: auto; }
 .btn-lime:hover { filter: brightness(1.07); border-color: transparent; }
 .btn.small { padding: 9px 16px; font-size: 14px; }
 .btn svg { width: 18px; height: 18px; flex: none; }
+.btn .ver { font-weight: 500; font-size: 13px; opacity: 0.7; }
+.btn .ver:empty { display: none; }
 
 /* hero */
 .hero { padding-block: 56px 0; display: grid; gap: 34px; }
@@ -217,12 +219,13 @@ footer a:hover { color: var(--fg); }
   <p class="l">Un'unica installazione per Mac e Windows. Gli aggiornamenti arrivano da soli ad ogni nuova versione.</p>
   <div class="price"><div class="amt"><span class="k">Prezzo di lancio</span><b>169 €</b></div><div class="trial"><b>10 giorni di prova gratuita</b><span>Installa, usa tutte le funzioni sulle tue partite e decidi dopo.</span></div></div>
   <div class="cta">
-    <a class="btn btn-lime" href="https://github.com/ToreCoach/handball-analyst-releases/releases/latest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 1.43c0 1.14-.39 2.18-1.09 2.94-.83.84-2.15 1.51-3.24 1.42-.15-1.1.36-2.32 1.11-3.08.79-.8 2.16-1.4 3.22-1.28zM20.9 17.3c-.52 1.17-1.14 2.3-1.95 3.38-.9 1.18-1.8 2.36-3.24 2.38-1.4.02-1.86-.83-3.48-.83s-2.13.81-3.48.85c-1.39.04-2.45-1.28-3.35-2.46-1.83-2.4-3.24-6.79-1.35-9.76 1.02-1.56 2.71-2.55 4.55-2.58 1.36-.02 2.65.92 3.48.92.82 0 2.4-1.14 4.05-.98.69.03 2.63.28 3.87 2.1-.1.06-2.31 1.35-2.29 4.03.02 3.2 2.81 4.27 2.84 4.28-.02.06-.44 1.53-1.65 3.03z"/></svg>Scarica per Mac</a>
-    <a class="btn btn-lime" href="https://github.com/ToreCoach/handball-analyst-releases/releases/latest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.45L9.75 2.1v9.45H0zM10.95 1.95L24 0v11.4H10.95zM0 12.6h9.75v9.45L0 20.7zM10.95 12.6H24V24l-13.05-1.8z"/></svg>Scarica per Windows</a>
+    <a class="btn btn-lime" id="dlMacArm" href="https://github.com/ToreCoach/handball-analyst-releases/releases/latest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 1.43c0 1.14-.39 2.18-1.09 2.94-.83.84-2.15 1.51-3.24 1.42-.15-1.1.36-2.32 1.11-3.08.79-.8 2.16-1.4 3.22-1.28zM20.9 17.3c-.52 1.17-1.14 2.3-1.95 3.38-.9 1.18-1.8 2.36-3.24 2.38-1.4.02-1.86-.83-3.48-.83s-2.13.81-3.48.85c-1.39.04-2.45-1.28-3.35-2.46-1.83-2.4-3.24-6.79-1.35-9.76 1.02-1.56 2.71-2.55 4.55-2.58 1.36-.02 2.65.92 3.48.92.82 0 2.4-1.14 4.05-.98.69.03 2.63.28 3.87 2.1-.1.06-2.31 1.35-2.29 4.03.02 3.2 2.81 4.27 2.84 4.28-.02.06-.44 1.53-1.65 3.03z"/></svg>Mac con chip Apple <span class="ver"></span></a>
+    <a class="btn btn-lime" id="dlMacIntel" href="https://github.com/ToreCoach/handball-analyst-releases/releases/latest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 1.43c0 1.14-.39 2.18-1.09 2.94-.83.84-2.15 1.51-3.24 1.42-.15-1.1.36-2.32 1.11-3.08.79-.8 2.16-1.4 3.22-1.28zM20.9 17.3c-.52 1.17-1.14 2.3-1.95 3.38-.9 1.18-1.8 2.36-3.24 2.38-1.4.02-1.86-.83-3.48-.83s-2.13.81-3.48.85c-1.39.04-2.45-1.28-3.35-2.46-1.83-2.4-3.24-6.79-1.35-9.76 1.02-1.56 2.71-2.55 4.55-2.58 1.36-.02 2.65.92 3.48.92.82 0 2.4-1.14 4.05-.98.69.03 2.63.28 3.87 2.1-.1.06-2.31 1.35-2.29 4.03.02 3.2 2.81 4.27 2.84 4.28-.02.06-.44 1.53-1.65 3.03z"/></svg>Mac Intel <span class="ver"></span></a>
+    <a class="btn btn-lime" id="dlWin" href="https://github.com/ToreCoach/handball-analyst-releases/releases/latest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.45L9.75 2.1v9.45H0zM10.95 1.95L24 0v11.4H10.95zM0 12.6h9.75v9.45L0 20.7zM10.95 12.6H24V24l-13.05-1.8z"/></svg>Windows <span class="ver"></span></a>
   </div>
   <div class="help">
-    <div><b>Mac:</b> scegli il file <b>arm64</b> se hai un Mac con chip Apple (M1, M2, M3), l'altro se hai un Mac Intel. Lo vedi dal menu Apple, "Informazioni su questo Mac".</div>
-    <div><b>Windows 10 e 11:</b> scegli il file <b>Setup .exe</b>. Se compare "Windows ha protetto il PC", clicca "Ulteriori informazioni" e poi "Esegui comunque".</div>
+    <div><b>Mac:</b> scegli "chip Apple" se hai un M1, M2, M3 o successivo, altrimenti "Intel". Lo vedi dal menu Apple, "Informazioni su questo Mac".</div>
+    <div><b>Windows 10 e 11:</b> se compare "Windows ha protetto il PC", clicca "Ulteriori informazioni" e poi "Esegui comunque".</div>
   </div>
 </section>
 
@@ -233,3 +236,24 @@ footer a:hover { color: var(--fg); }
 </footer>
 
 </div>
+
+<script>
+(function () {
+  var REPO = 'ToreCoach/handball-analyst-releases';
+  fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (rel) {
+      var a = rel.assets || [];
+      function pick(fn) { return a.filter(function (x) { return fn(x.name.toLowerCase()); })[0]; }
+      var arm = pick(function (n) { return /\.dmg$/.test(n) && /arm64/.test(n); });
+      var intel = pick(function (n) { return /\.dmg$/.test(n) && !/arm64/.test(n); });
+      var win = pick(function (n) { return /\.exe$/.test(n) && !/blockmap/.test(n); });
+      var v = ' v' + String(rel.tag_name || '').replace(/^v/, '');
+      [['dlMacArm', arm], ['dlMacIntel', intel], ['dlWin', win]].forEach(function (p) {
+        var el = document.getElementById(p[0]);
+        if (el && p[1]) { el.href = p[1].browser_download_url; el.querySelector('.ver').textContent = v; }
+      });
+    })
+    .catch(function () {});
+})();
+</script>
