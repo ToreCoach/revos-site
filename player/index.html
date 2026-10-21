@@ -95,6 +95,9 @@ h1, h2, h3, h4, p { margin: 0; }
 .pill.rev { color: var(--blue); border-color: rgba(90, 169, 255, 0.5); }
 .pill.imp { color: var(--gold); border-color: rgba(255, 201, 64, 0.5); }
 .pill.dur { color: var(--muted); }
+.pill.exp { color: var(--muted); }
+.pill.exp-y { color: var(--gold); border-color: rgba(255, 201, 64, 0.5); }
+.pill.exp-r { color: var(--red); border-color: rgba(255, 90, 106, 0.5); }
 .ptitle { font-family: var(--f-disp); font-weight: 800; font-size: 34px; text-transform: uppercase; line-height: 1; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .chips button { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg2); color: var(--muted); font-size: 14px; font-weight: 600; }
@@ -273,6 +276,44 @@ const fmtDT = (x) => { const d = dt(x); return d ? pad(d.getDate()) + '/' + pad(
 const mmss = (s) => { s = Math.round(s || 0); return pad(Math.floor(s / 60)) + ':' + pad(s % 60); };
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ms = (a) => (dt(a.assignedAt) || new Date(0)).getTime();
+/*REVOS-SCAD*/
+const GIORNI_VIDEO = 30;
+/*REVOS-AVVISO30*/
+const avviso30 = () => '<p class="priv" style="margin-top:12px;padding:8px 12px;font-size:13px">I video restano disponibili ' + GIORNI_VIDEO + ' giorni dall’invio, poi vengono eliminati automaticamente.</p>';
+const scadMs = (a) => { const e = dt(a.expiresAt); if (e) return e.getTime(); const b = dt(a.assignedAt); return b ? b.getTime() + GIORNI_VIDEO * 86400000 : Infinity; };
+const giorniRest = (a) => Math.ceil((scadMs(a) - Date.now()) / 86400000);
+const scaduto = (a) => scadMs(a) <= Date.now();
+function scadPill(a) {
+  const g = giorniRest(a); if (!isFinite(g)) return '';
+  const cls = g <= 3 ? ' exp-r' : g <= 7 ? ' exp-y' : '';
+  const x = g <= 0 ? 'Scade oggi' : g === 1 ? 'Scade domani' : 'Scade tra ' + g + ' giorni';
+  return '<span class="pill exp' + cls + '">' + x + '</span>';
+}
+function dlBtn(a) {
+  if (a.allowDownload === false || !S.videoUrl) return '';
+  return '<button class="btn wide" style="margin-top:14px" data-act="dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Scarica video</button>';
+}
+async function scaricaVideo(a, btn) {
+  const nome = (String(a.title || 'video').replace(/[^\w\- ]+/g, '').trim() || 'video') + '.mp4';
+  const orig = btn.innerHTML; btn.disabled = true; btn.textContent = 'Scarico…';
+  const fine = () => { try { btn.innerHTML = orig; btn.disabled = false; } catch (e) { } };
+  try {
+    const r = await fetch(S.videoUrl); if (!r.ok) throw new Error('http ' + r.status);
+    const blob = await r.blob();
+    const file = new File([blob], nome, { type: 'video/mp4' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: a.title || 'Video' }); fine(); return; }
+      catch (e) { if (e && e.name === 'AbortError') { fine(); return; } }
+    }
+    const u = URL.createObjectURL(blob), l = document.createElement('a');
+    l.href = u; l.download = nome; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 60000);
+  } catch (e) {
+    window.open(S.videoUrl, '_blank');
+    toast('Download', 'Se non parte, tieni premuto sul video e scegli Salva.');
+  }
+  fine();
+}
 const sorted = () => S.list.slice().sort((a, b) => ms(b) - ms(a));
 const toWatch = (l) => l.filter((a) => a.status !== 'seen');
 const byId = (id) => S.list.filter((a) => a.id === id)[0];
@@ -288,7 +329,7 @@ function thumbSvg(a) {
 }
 function pill(a) {
   const h = a.status === 'seen' ? '<span class="pill seen">' + ICO.check + 'Visto</span>' : a.status === 'review' ? '<span class="pill rev"><i></i>Da rivedere</span>' : '<span class="pill new"><i></i>Nuovo</span>';
-  return (a.important ? '<span class="pill imp">' + ICO.star + 'Importante</span>' : '') + h;
+  return (a.important ? '<span class="pill imp">' + ICO.star + 'Importante</span>' : '') + h + scadPill(a);
 }
 function vrow(a) {
   return '<button class="vrow" data-act="open" data-id="' + a.id + '"><div class="thumb">' + thumbSvg(a) + '<div class="pl"><i>' + ICO.play + '</i></div></div><div style="min-width:0"><h4>' + esc(a.title) + '</h4><p class="m">' + esc(a.match || '') + '</p><div class="pills"><span class="pill dur">' + mmss(a.durationSec) + '</span>' + pill(a) + '</div></div></button>';
@@ -313,7 +354,7 @@ function videos() {
   const m = sorted(), f = S.filter;
   const l = f === 'new' ? toWatch(m) : f === 'seen' ? m.filter((a) => a.status === 'seen') : m;
   const C = (k, t) => '<button data-act="filter" data-f="' + k + '" aria-pressed="' + (f === k) + '">' + t + '</button>';
-  return '<h2 class="ptitle">I miei video</h2><div class="chips">' + C('all', 'Tutti ' + m.length) + C('new', 'Da vedere ' + toWatch(m).length) + C('seen', 'Visti ' + m.filter((a) => a.status === 'seen').length) + '</div>' +
+  return '<h2 class="ptitle">I miei video</h2><div class="chips">' + C('all', 'Tutti ' + m.length) + C('new', 'Da vedere ' + toWatch(m).length) + C('seen', 'Visti ' + m.filter((a) => a.status === 'seen').length) + '</div>' + avviso30() +
     (l.length ? '<div class="list">' + l.map(vrow).join('') + '</div>' : '<div class="empty">Nessun video in questa lista.</div>');
 }
 function favs() {
@@ -397,7 +438,7 @@ function detail() {
   const player = S.videoUrl
     ? '<video id="vp" class="vid" src="' + esc(S.videoUrl) + '" controls playsinline preload="metadata"></video>'
     : '<div class="vid ph">' + (S.videoErr ? esc(S.videoErr) : 'Carico il video…') + '</div>';
-  return '<button class="back" data-act="back">' + ICO.back + 'Indietro</button><div class="player">' + player + '</div>' +
+  return '<button class="back" data-act="back">' + ICO.back + 'Indietro</button><div class="player">' + player + '</div>' + dlBtn(a) + avviso30() +
     '<div class="meta"><h2 class="ptitle">' + esc(a.title) + '</h2><p class="m">' + esc(a.match || '') + (a.matchDate ? ' · ' + esc(a.matchDate.split('-').reverse().join('/')) : '') + ' · ' + Math.round(a.durationSec || 0) + ' sec</p>' +
     '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">' + pill(a) + '</div><div class="tags">' + (a.tags || []).map((t) => '<span>' + esc(t) + '</span>').join('') + '</div></div>' +
     (a.note ? '<div class="note"><h5>Note dell’allenatore</h5><p>“' + esc(a.note) + '”</p></div>' : '<div class="note empty-n"><h5>Note dell’allenatore</h5><p>Nessuna nota per questo video.</p></div>') + seenBox;
@@ -453,6 +494,7 @@ document.addEventListener('click', async (e) => {
   else if (act === 'seen') { const a = byId(S.detail); await setAssign(a.id, { status: 'seen', viewedAt: serverTimestamp() }); }
   else if (act === 'review') { const a = byId(S.detail); await setAssign(a.id, { status: 'review' }); }
   else if (act === 'fav') { const a = byId(S.detail); await setAssign(a.id, { favorite: !a.favorite }); }
+  else if (act === 'dl') { scaricaVideo(byId(S.detail), el); }
   else if (act === 'logout') { await signOut(auth); }
   else if (act === 'notif') { attivaNotifiche(); }
   else if (act === 'pw') { apriCambioPassword(); }
@@ -490,7 +532,7 @@ onAuthStateChanged(auth, async (u) => {
   const first = { v: true };
   unsub = onSnapshot(query(collection(db, 'assignments'), where('playerId', '==', u.uid)), (snap) => {
     const prev = S.list.map((a) => a.id);
-    S.list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    S.list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => !scaduto(a));
     S.loaded = true;
     if (!first.v) {
       const nuovi = S.list.filter((a) => prev.indexOf(a.id) < 0);
