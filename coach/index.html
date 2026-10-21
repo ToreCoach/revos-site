@@ -307,12 +307,12 @@ function showMain() {
     m.innerHTML = '<div class="card"><h3 class="disp">Nuovo giocatore o staff</h3><p class="hint">Crea l’accesso del giocatore: poi gli comunichi email e password.</p>' +
       '<form id="gf" class="grid2"><div class="fld full"><label for="gTipo">Tipo</label><select id="gTipo"><option value="player">Giocatore</option><option value="staff">Staff (allenatore, preparatore, analista…)</option></select></div><div class="fld"><label for="gN">Nome e cognome</label><input id="gN" required></div><div class="fld" id="gNumW"><label for="gNum">Numero</label><input id="gNum" inputmode="numeric" placeholder="7"></div><div class="fld" id="gRuoloW" hidden><label for="gRuolo">Ruolo</label><input id="gRuolo" placeholder="Vice allenatore"></div>' +
       '<div class="fld"><label for="gE">Email</label><input id="gE" type="email" required></div><div class="fld"><label for="gP">Password (min. 6)</label><input id="gP" type="text" minlength="6" required></div>' +
-      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">Giocatori e staff</h3><div id="plist"></div></div>' +
+      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit" id="gBtn">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">Giocatori e staff</h3><div id="plist"></div></div>' +
       '<div class="card"><h3 class="disp">Gruppi</h3><p class="hint">Crea gruppi (es. Portieri, Difesa, Ali) per assegnare un video a tutti con un clic.</p>' +
       '<div class="fld"><label for="gnm">Nome del gruppo</label><input id="gnm" placeholder="Portieri"></div><div class="flab">Giocatori del gruppo</div><div id="gmem" class="fgrid"></div>' +
       '<p class="msg" id="msg2"></p><div class="fact"><button class="btn btn-lime" id="gsave">Salva gruppo</button> <button class="btn" id="gcancel" hidden>Annulla modifica</button></div><div id="glist" style="margin-top:14px"></div></div>';
     $('#gf').addEventListener('submit', addPlayer);
-    $('#gTipo').addEventListener('change', () => { const st = $('#gTipo').value === 'staff'; $('#gNumW').hidden = st; $('#gRuoloW').hidden = !st; });
+    $('#gTipo').addEventListener('change', () => { const st = $('#gTipo').value === 'staff'; $('#gNumW').hidden = st; $('#gRuoloW').hidden = !st; $('#gBtn').textContent = st ? 'Crea staff' : 'Crea giocatore'; });
     $('#gsave').addEventListener('click', saveGroup);
     $('#gcancel').addEventListener('click', () => { S.gEdit = null; S.gSel = {}; $('#gnm').value = ''; paint(); });
   } else if (S.tab === 'vid') {
