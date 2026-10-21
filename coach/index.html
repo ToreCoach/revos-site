@@ -252,6 +252,7 @@ const dt = (x) => (x ? (x.toDate ? x.toDate() : new Date(x)) : null);
 const fmtDT = (x) => { const d = dt(x); return d ? pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' – ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) : 'nessuna'; };
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const players = () => S.players.filter((u) => u.role === 'player').sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+/*REVOS-STAFF*/ const lbl = (p) => esc(p.name) + (p.staff ? ' · ' + esc(p.ruolo || 'Staff') : '');
 const ICO_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 function pill(a) {
   return (a.important ? '<span class="pill imp">★ Importante</span>' : '') + (a.status === 'seen' ? '<span class="pill seen">' + ICO_CHECK + 'Visto</span>' : a.status === 'review' ? '<span class="pill rev"><i></i>Da rivedere</span>' : '<span class="pill new"><i></i>Nuovo</span>');
@@ -299,18 +300,19 @@ function showSetup() {
 
 /* ---------- pagina principale ---------- */
 function showMain() {
-  $('#app').innerHTML = '<div class="tabs" role="tablist">' + [['att', 'Attività'], ['ass', 'Assegna'], ['vid', 'Video'], ['gio', 'Giocatori']].map((t) => '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (S.tab === t[0]) + '">' + t[1] + '</button>').join('') + '</div><div id="main"></div>';
+  $('#app').innerHTML = '<div class="tabs" role="tablist">' + [['att', 'Attività'], ['ass', 'Assegna'], ['vid', 'Video'], ['gio', 'Giocatori e staff']].map((t) => '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (S.tab === t[0]) + '">' + t[1] + '</button>').join('') + '</div><div id="main"></div>';
   [].forEach.call(document.querySelectorAll('[data-tab]'), (b) => b.addEventListener('click', () => { S.tab = b.dataset.tab; showMain(); }));
   const m = $('#main');
   if (S.tab === 'gio') {
-    m.innerHTML = '<div class="card"><h3 class="disp">Nuovo giocatore</h3><p class="hint">Crea l’accesso del giocatore: poi gli comunichi email e password.</p>' +
-      '<form id="gf" class="grid2"><div class="fld"><label for="gN">Nome e cognome</label><input id="gN" required></div><div class="fld"><label for="gNum">Numero</label><input id="gNum" inputmode="numeric" placeholder="7"></div>' +
+    m.innerHTML = '<div class="card"><h3 class="disp">Nuovo giocatore o staff</h3><p class="hint">Crea l’accesso del giocatore: poi gli comunichi email e password.</p>' +
+      '<form id="gf" class="grid2"><div class="fld full"><label for="gTipo">Tipo</label><select id="gTipo"><option value="player">Giocatore</option><option value="staff">Staff (allenatore, preparatore, analista…)</option></select></div><div class="fld"><label for="gN">Nome e cognome</label><input id="gN" required></div><div class="fld" id="gNumW"><label for="gNum">Numero</label><input id="gNum" inputmode="numeric" placeholder="7"></div><div class="fld" id="gRuoloW" hidden><label for="gRuolo">Ruolo</label><input id="gRuolo" placeholder="Vice allenatore"></div>' +
       '<div class="fld"><label for="gE">Email</label><input id="gE" type="email" required></div><div class="fld"><label for="gP">Password (min. 6)</label><input id="gP" type="text" minlength="6" required></div>' +
-      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">I tuoi giocatori</h3><div id="plist"></div></div>' +
+      '<div class="full"><p class="msg" id="msg"></p><button class="btn btn-lime" type="submit">Crea giocatore</button></div></form></div><div class="card"><h3 class="disp">Giocatori e staff</h3><div id="plist"></div></div>' +
       '<div class="card"><h3 class="disp">Gruppi</h3><p class="hint">Crea gruppi (es. Portieri, Difesa, Ali) per assegnare un video a tutti con un clic.</p>' +
       '<div class="fld"><label for="gnm">Nome del gruppo</label><input id="gnm" placeholder="Portieri"></div><div class="flab">Giocatori del gruppo</div><div id="gmem" class="fgrid"></div>' +
       '<p class="msg" id="msg2"></p><div class="fact"><button class="btn btn-lime" id="gsave">Salva gruppo</button> <button class="btn" id="gcancel" hidden>Annulla modifica</button></div><div id="glist" style="margin-top:14px"></div></div>';
     $('#gf').addEventListener('submit', addPlayer);
+    $('#gTipo').addEventListener('change', () => { const st = $('#gTipo').value === 'staff'; $('#gNumW').hidden = st; $('#gRuoloW').hidden = !st; });
     $('#gsave').addEventListener('click', saveGroup);
     $('#gcancel').addEventListener('click', () => { S.gEdit = null; S.gSel = {}; $('#gnm').value = ''; paint(); });
   } else if (S.tab === 'vid') {
@@ -334,10 +336,14 @@ function showMain() {
 }
 function paint() {
   const P = players();
-  if ($('#plist')) $('#plist').innerHTML = P.length ? P.map((p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.number ? ' · ' + esc(p.number) : '') + '</b><small>' + esc(p.email || '') + '</small></div><div class="pills"><button class="btn" data-pd="' + p.id + '">Elimina</button></div></div>').join('') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  if ($('#plist')) {
+    const rowP = (p) => '<div class="crow"><div class="t"><b>' + esc(p.name) + (p.staff ? ' · ' + esc(p.ruolo || 'Staff') : (p.number ? ' · ' + esc(p.number) : '')) + '</b><small>' + esc(p.email || '') + '</small></div><div class="pills"><button class="btn" data-pd="' + p.id + '">Elimina</button></div></div>';
+    const GP = P.filter((p) => !p.staff), SP = P.filter((p) => p.staff);
+    $('#plist').innerHTML = P.length ? (GP.length ? '<div class="flab">Giocatori</div>' + GP.map(rowP).join('') : '') + (SP.length ? '<div class="flab">Staff</div>' + SP.map(rowP).join('') : '') : '<div class="empty">Nessun giocatore: aggiungine uno qui sopra.</div>';
+  }
   [].forEach.call(document.querySelectorAll('[data-pd]'), (b) => b.addEventListener('click', () => deletePlayer(b.dataset.pd, b)));
   if ($('#gmem')) {
-    $('#gmem').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.gSel[p.id] ? ' on' : '') + '"><input type="checkbox" data-gm="' + p.id + '"' + (S.gSel[p.id] ? ' checked' : '') + '>' + esc(p.name) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
+    $('#gmem').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.gSel[p.id] ? ' on' : '') + '"><input type="checkbox" data-gm="' + p.id + '"' + (S.gSel[p.id] ? ' checked' : '') + '>' + lbl(p) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
     [].forEach.call(document.querySelectorAll('[data-gm]'), (c) => c.addEventListener('change', () => { S.gSel[c.dataset.gm] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
     $('#gcancel').hidden = !S.gEdit;
     $('#gsave').textContent = S.gEdit ? 'Aggiorna gruppo' : 'Salva gruppo';
@@ -354,9 +360,10 @@ function paint() {
     [].forEach.call(document.querySelectorAll('[data-gd]'), (b) => b.addEventListener('click', () => deleteGroup(b.dataset.gd, b)));
   }
   if ($('#aG')) {
-    $('#aG').innerHTML = P.length ? '<button class="btn" data-gall="1">Tutti</button>' + S.groups.map((g) => '<button class="btn" data-gp="' + g.id + '">' + esc(g.name) + '</button>').join('') : '';
+    $('#aG').innerHTML = P.length ? '<button class="btn" data-gall="1">Tutti</button>' + (P.some((p) => p.staff) ? '<button class="btn" data-gstaff="1">Staff</button>' : '') + S.groups.map((g) => '<button class="btn" data-gp="' + g.id + '">' + esc(g.name) + '</button>').join('') : '';
     const setSel = (ids) => { const all = ids.length && ids.every((id) => S.selP[id]); ids.forEach((id) => { S.selP[id] = !all; }); paint(); };
     [].forEach.call(document.querySelectorAll('[data-gall]'), (b) => b.addEventListener('click', () => setSel(P.map((p) => p.id))));
+    [].forEach.call(document.querySelectorAll('[data-gstaff]'), (b) => b.addEventListener('click', () => setSel(P.filter((p) => p.staff).map((p) => p.id))));
     [].forEach.call(document.querySelectorAll('[data-gp]'), (b) => b.addEventListener('click', () => { const g = S.groups.filter((x) => x.id === b.dataset.gp)[0]; if (g) setSel((g.members || []).filter((id) => P.some((p) => p.id === id))); }));
   }
   if ($('#vlist')) $('#vlist').innerHTML = S.videos.length ? S.videos.slice().sort((a, b) => ((dt(b.createdAt) || 0) - (dt(a.createdAt) || 0))).map((v) => {
@@ -365,7 +372,7 @@ function paint() {
   }).join('') : '<div class="empty">Ancora nessun video caricato.</div>';
   if ($('#aV')) {
     $('#aV').innerHTML = S.videos.length ? S.videos.map((v) => '<label class="chk' + (S.selV[v.id] ? ' on' : '') + '"><input type="checkbox" data-v="' + v.id + '"' + (S.selV[v.id] ? ' checked' : '') + '><b style="font-weight:600">' + esc(v.title) + '</b><small>' + esc(v.match || '') + ' · ' + Math.round(v.durationSec || 0) + ' sec</small></label>').join('') : '<div class="empty">Carica prima un video nella scheda Video.</div>';
-    $('#aP').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.selP[p.id] ? ' on' : '') + '"><input type="checkbox" data-p="' + p.id + '"' + (S.selP[p.id] ? ' checked' : '') + '>' + esc(p.name) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
+    $('#aP').innerHTML = P.length ? P.map((p) => '<label class="chk' + (S.selP[p.id] ? ' on' : '') + '"><input type="checkbox" data-p="' + p.id + '"' + (S.selP[p.id] ? ' checked' : '') + '>' + lbl(p) + '</label>').join('') : '<div class="empty">Aggiungi prima i giocatori.</div>';
     [].forEach.call(document.querySelectorAll('[data-v]'), (c) => c.addEventListener('change', () => { S.selV[c.dataset.v] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
     [].forEach.call(document.querySelectorAll('[data-p]'), (c) => c.addEventListener('change', () => { S.selP[c.dataset.p] = c.checked; c.closest('.chk').classList.toggle('on', c.checked); }));
   }
@@ -387,17 +394,17 @@ function paint() {
 /* ---------- azioni ---------- */
 async function addPlayer(e) {
   e.preventDefault();
-  const name = $('#gN').value.trim(), number = $('#gNum').value.trim(), email = $('#gE').value.trim(), pw = $('#gP').value;
+  const name = $('#gN').value.trim(), number = $('#gNum').value.trim(), staff = $('#gTipo').value === 'staff', ruolo = $('#gRuolo').value.trim(), email = $('#gE').value.trim(), pw = $('#gP').value;
   msg('Creo l’accesso…', true);
   let sec;
   try {
     sec = initializeApp(firebaseConfig, 'sec' + Date.now());
     const sa = getAuth(sec);
     const cred = await createUserWithEmailAndPassword(sa, email, pw);
-    await setDoc(doc(db, 'users', cred.user.uid), { role: 'player', name, number, email, teamId: S.teamId, createdAt: serverTimestamp() });
+    await setDoc(doc(db, 'users', cred.user.uid), Object.assign({ role: 'player', name, number: staff ? '' : number, email, teamId: S.teamId, createdAt: serverTimestamp() }, staff ? { staff: true, ruolo } : {}));
     await signOut(sa);
-    msg('Giocatore creato. Comunicagli email e password: ' + email + ' / ' + pw, true);
-    $('#gf').reset();
+    msg((staff ? 'Membro dello staff creato.' : 'Giocatore creato.') + ' Comunicagli email e password: ' + email + ' / ' + pw, true);
+    $('#gf').reset(); $('#gTipo').dispatchEvent(new Event('change'));
   } catch (er) { msg(codeMsg(er)); }
   if (sec) deleteApp(sec).catch(() => {});
 }
