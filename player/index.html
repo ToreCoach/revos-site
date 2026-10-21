@@ -277,7 +277,7 @@ const mmss = (s) => { s = Math.round(s || 0); return pad(Math.floor(s / 60)) + '
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ms = (a) => (dt(a.assignedAt) || new Date(0)).getTime();
 /*REVOS-SCAD*/
-const GIORNI_VIDEO = 30;
+const GIORNI_VIDEO = 20;
 /*REVOS-AVVISO30*/
 const avviso30 = () => '<p class="priv" style="margin-top:12px;padding:8px 12px;font-size:13px">I video restano disponibili ' + GIORNI_VIDEO + ' giorni dall’invio, poi vengono eliminati automaticamente.</p>';
 const scadMs = (a) => { const e = dt(a.expiresAt); if (e) return e.getTime(); const b = dt(a.assignedAt); return b ? b.getTime() + GIORNI_VIDEO * 86400000 : Infinity; };
