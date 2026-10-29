@@ -472,7 +472,7 @@ async function deleteGroup(id, btn) {
 /* ---------- dati in tempo reale ---------- */
 function listen() {
   const q = (c) => query(collection(db, c), where('teamId', '==', S.teamId));
-  const sub = (c, key) => onSnapshot(q(c), (snap) => { S[key] = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())); paint(); }, () => msg('Non riesco a leggere ' + c + '. Controlla le regole di sicurezza.'));
+  const sub = (c, key) => onSnapshot(q(c), (snap) => { S[key] = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((x) => key !== 'assigns' || x.kind !== 'message'); /*REVOS-COMUNICAZIONI*/ paint(); }, () => msg('Non riesco a leggere ' + c + '. Controlla le regole di sicurezza.'));
   unsubs = [sub('users', 'players'), sub('videos', 'videos'), sub('assignments', 'assigns'),
     onSnapshot(doc(db, 'teams', S.teamId), (d) => { S.groups = (d.data() || {}).groups || []; paint(); }, () => {})];
 }

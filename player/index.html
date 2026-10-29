@@ -229,6 +229,30 @@ body { padding: 0; }
 .ptoast { visibility: hidden; opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s 0.35s; }
 .ptoast.on { visibility: visible; opacity: 1; transition: transform 0.35s ease, opacity 0.35s ease; }
 html, body { min-height: 100%; }
+/*REVOS-COMUNICAZIONI*/
+.pnav { grid-template-columns: repeat(5, 1fr); } .pnav button { min-width: 0; }
+.mrow { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; text-align: left; padding: 12px; border-radius: 14px; border: 1px solid rgba(120,190,255,.16); background: rgba(255,255,255,.03); color: inherit; font: inherit; cursor: pointer; }
+.mrow.nuovo { border-color: rgba(139,252,3,.45); background: rgba(139,252,3,.06); }
+.mrow .mic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(34,211,238,.12); color: #22d3ee; }
+.mrow .mic svg { width: 22px; height: 22px; }
+.mrow small { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #22d3ee; }
+.mrow h4 { margin: 2px 0 0; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mrow .m { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.todo.msgtodo { margin-top: 12px; border-color: rgba(34,211,238,.5); background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(34,211,238,.04)); } .todo.msgtodo.none { border-color: var(--line); background: var(--bg2); } .todo.msgtodo .n { color: #22d3ee; }
+.conv .ck { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #22d3ee; }
+.conv .cdt { text-transform: capitalize; margin-top: 4px; color: var(--muted); }
+.cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.cbox { padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(120,190,255,.18); border-left: 4px solid #22d3ee; background: rgba(255,255,255,.03); }
+.cbox.hi { border-left-color: #8bfc03; background: rgba(139,252,3,.07); }
+.cbox small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cbox b { display: block; font-size: 17px; margin-top: 2px; }
+.clist { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+.clist li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(120,190,255,.12); font-weight: 600; font-size: 15px; min-width: 0; }
+.clist li span { width: 26px; height: 26px; flex: none; border-radius: 50%; border: 1.5px solid #8bfc03; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #d8ffb0; }
+.clist li.r span { border-color: #22d3ee; color: #bff4ff; font-size: 10px; }
+.clist li.io { color: #8bfc03; }
+.clist li.io span { background: #8bfc03; color: #04220f; }
+@media (max-width: 380px) { .clist, .cgrid { grid-template-columns: 1fr; } }
 @media (max-width: 559px) { body { padding-inline: 0; padding-block: env(safe-area-inset-top, 0px) 0; } .app { min-height: 100dvh; } .screen { padding-top: 24px; } }
 </style>
 <div class="app"><div class="screen" id="screen"></div><nav class="pnav" id="nav" hidden aria-label="Navigazione"></nav><div class="ptoast" id="ptoast" role="status" aria-live="polite"></div></div>
@@ -267,7 +291,7 @@ const ICO = {
 };
 
 const VAPID = 'BLKa8x-pka20UKygmcY0K_f_FgF8kVgoqk6fe5azUrRw0Yb9C5wFV1R1SFhT2dS2bz5VCHh4PxbXrodYA1F5QcY';
-const S = { notifMsg: '', user: null, profile: null, team: null, list: [], tab: 'home', filter: 'all', detail: null, err: '', info: '', loading: true, loaded: false, videoUrl: null, videoErr: '' };
+const S = { notifMsg: '', user: null, profile: null, team: null, list: [], msgs: [], tab: 'home', filter: 'all', detail: null, err: '', info: '', loading: true, loaded: false, videoUrl: null, videoErr: '' };
 let unsub = null;
 const $ = (s) => document.querySelector(s);
 const pad = (n) => (n < 10 ? '0' : '') + n;
@@ -318,7 +342,7 @@ async function scaricaVideo(a, btn) {
 }
 const sorted = () => S.list.slice().sort((a, b) => ms(b) - ms(a));
 const toWatch = (l) => l.filter((a) => a.status !== 'seen');
-const byId = (id) => S.list.filter((a) => a.id === id)[0];
+const byId = (id) => S.list.concat(S.msgs).filter((a) => a.id === id)[0];
 const seedOf = (id) => { let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 97; return h % 7; };
 
 const BA = [[335, 26], [335, 174], [255, 52], [240, 100], [255, 148], [346, 100]];
@@ -338,6 +362,40 @@ function vrow(a) {
 }
 const logoHtml = '<div class="logo"><span class="mk"></span><span>REVOS <i>PLAYER</i></span></div>';
 
+/*REVOS-COMUNICAZIONI* convocazioni e avvisi dell'allenatore (stessa raccolta dei video, kind: 'message') */
+const isMsg = (a) => a && a.kind === 'message';
+const msgDaLeggere = () => S.msgs.filter((a) => a.status !== 'seen');
+ICO.msg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12.5h5"/></svg>';
+ICO.clip = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 11h6M9 15h4"/></svg>';
+const dataLunga = (s) => { if (!s) return ''; const d = new Date(s + 'T12:00:00'); return isNaN(d) ? s : d.toLocaleDateString(document.documentElement.lang || 'it', { weekday: 'long', day: 'numeric', month: 'long' }); };
+function mrow(a) {
+  const c = a.conv || {}, nuovo = a.status !== 'seen';
+  return '<button class="mrow' + (nuovo ? ' nuovo' : '') + '" data-act="open" data-id="' + a.id + '"><span class="mic">' + ICO.clip + '</span><div style="min-width:0"><small>Convocazione</small><h4>' + esc(c.gara || a.title) + '</h4><p class="m">' + esc(dataLunga(c.data)) + (c.oraRitrovo ? ' · ' + esc(c.oraRitrovo) : '') + '</p></div>' + (nuovo ? '<span class="pill new"><i></i>Nuovo</span>' : '<span class="pill seen">' + ICO.check + 'Letto</span>') + '</button>';
+}
+function msgs() {
+  const l = S.msgs.slice().sort((a, b) => ms(b) - ms(a));
+  return '<h2 class="ptitle">Comunicazioni</h2><p class="m" style="color:var(--muted);margin-top:8px">Convocazioni e avvisi del tuo allenatore.</p>' +
+    (l.length ? '<div class="list">' + l.map(mrow).join('') + '</div>' : '<div class="empty">Nessuna comunicazione per ora.</div>');
+}
+function msgDetail(a) {
+  const c = a.conv || {};
+  const me = ((S.profile && S.profile.name) || '').trim().toLowerCase();
+  const tok = me.split(/\s+/).filter((x) => x.length > 1);
+  const io = (n) => { const t = String(n || '').toLowerCase(); return tok.length > 0 && tok.every((x) => t.indexOf(x) >= 0); };
+  const riga = (n, i, r) => '<li class="' + (io(n) ? 'io' : '') + (r ? ' r' : '') + '"><span>' + i + '</span>' + esc(n) + '</li>';
+  const conv = (c.convocati || []).map((n, i) => (n ? riga(n, i + 1) : '')).join('');
+  const ris = (c.riserve || []).map((n, i) => (n ? riga(n, 'R' + (i + 1), 1) : '')).join('');
+  const box = (k, v, hi) => v ? '<div class="cbox' + (hi ? ' hi' : '') + '"><small>' + k + '</small><b>' + esc(v) + '</b></div>' : '';
+  const letto = a.status === 'seen'
+    ? '<div class="seenbox">' + ICO.check + '<div><b>Letto</b><span>' + fmtDT(a.viewedAt) + '</span></div></div>'
+    : '<button class="btn btn-lime wide" style="margin-top:18px" data-act="seen">' + ICO.check + 'Ho letto</button>';
+  return '<button class="back" data-act="back">' + ICO.back + 'Indietro</button>' +
+    '<div class="conv"><small class="ck"><span>Convocazione</span>' + (c.categoria ? '<span> · ' + esc(c.categoria) + '</span>' : '') + '</small><h2 class="ptitle">' + esc(c.gara || a.title) + '</h2><p class="m cdt">' + esc(dataLunga(c.data)) + '</p>' +
+    '<div class="cgrid">' + box('Orario ritrovo', c.oraRitrovo, 1) + box('Luogo ritrovo', c.luogoRitrovo, 1) + box('Orario gara', c.oraGara) + box('Luogo gara', c.luogoGara) + '</div>' +
+    (conv ? '<div class="sec">Convocati</div><ol class="clist">' + conv + '</ol>' : '') +
+    (ris ? '<div class="sec">Riserve a casa</div><ol class="clist">' + ris + '</ol>' : '') +
+    (c.note ? '<div class="note"><h5>Note dell’allenatore</h5><p>' + esc(c.note) + '</p></div>' : '') + '</div>' + letto;
+}
 function login() {
   return '<div class="login">' + logoHtml + '<h2>Il tuo allenatore<br>ti aspetta</h2><p class="s">Accedi con l’email e la password che ti ha dato lui.</p>' +
     '<form id="lg" autocomplete="on"><div class="fld"><label for="lgEmail">Email</label><input id="lgEmail" type="email" autocomplete="username" placeholder="nome@email.it" required></div>' +
@@ -350,6 +408,7 @@ function home() {
   const m = sorted(), n = toWatch(m).length, first = ((S.profile && S.profile.name) || '').split(' ')[0] || '';
   return logoHtml + '<h2 class="hello">Ciao ' + esc(first) + '<small>' + (n ? 'Il tuo allenatore ha preparato dei video per te.' : (m.length ? 'Hai visto tutto. Ottimo lavoro.' : 'Quando il tuo allenatore ti assegna un video lo trovi qui.')) + '</small></h2>' +
     '<button class="todo' + (n ? '' : ' none') + '" data-act="towatch"><span class="n">' + n + '</span><div><b>' + (n ? 'Video da vedere' : 'Niente da vedere') + '</b><span>' + (n ? 'Tocca per aprire la lista' : 'Ti avviso quando ne arrivano di nuovi') + '</span></div>' + ICO.chev + '</button>' +
+    (S.msgs.length ? '<button class="todo msgtodo' + (msgDaLeggere().length ? '' : ' none') + '" data-act="tab" data-k="msg"><span class="n">' + (msgDaLeggere().length || S.msgs.length) + '</span><div><b>' + (msgDaLeggere().length ? 'Nuove comunicazioni' : 'Comunicazioni') + '</b><span>' + esc((S.msgs.slice().sort((x, y) => ms(y) - ms(x))[0].conv || {}).gara || '') + '</span></div>' + ICO.chev + '</button>' : '') +
     '<div class="sec">Video recenti</div><div class="list">' + (m.length ? m.slice(0, 3).map(vrow).join('') : '<div class="empty">Ancora nessun video assegnato.</div>') + '</div>';
 }
 function videos() {
@@ -433,6 +492,7 @@ async function attivaNotifiche() {
 }
 function detail() {
   const a = byId(S.detail);
+  if (isMsg(a)) return msgDetail(a);
   if (!a) return '<button class="back" data-act="back">' + ICO.back + 'Indietro</button><div class="empty">Video non trovato.</div>';
   const seenBox = a.status === 'seen'
     ? '<div class="seenbox">' + ICO.check + '<div><b>Visto</b><span>' + fmtDT(a.viewedAt) + '</span></div></div><div class="row2"><button class="btn" data-act="review">' + ICO.redo + 'Da rivedere</button><button class="btn' + (a.favorite ? ' on' : '') + '" data-act="fav">' + (a.favorite ? ICO.star : ICO.starO) + 'Preferito</button></div>'
@@ -451,14 +511,14 @@ function renderNav() {
   nav.hidden = false;
   const n = toWatch(S.list).length;
   const N = (k, t, ic, bd) => '<button data-act="tab" data-k="' + k + '" aria-current="' + (!S.detail && S.tab === k) + '">' + ic + (bd ? '<span class="bdg">' + bd + '</span>' : '') + t + '</button>';
-  nav.innerHTML = N('home', 'Home', ICO.home) + N('video', 'Video', ICO.video, n || '') + N('fav', 'Preferiti', ICO.starO) + N('me', 'Profilo', ICO.user);
+  nav.innerHTML = N('home', 'Home', ICO.home) + N('video', 'Video', ICO.video, n || '') + N('msg', 'Avvisi', ICO.msg, msgDaLeggere().length || '') + N('fav', 'Preferiti', ICO.starO) + N('me', 'Profilo', ICO.user);
 }
 function render(keepScroll) {
   const scr = $('#screen'), top = scr.scrollTop, vp0 = $('#vp'), ct = vp0 ? vp0.currentTime : 0, was = !!(vp0 && !vp0.paused);
   if (S.loading) scr.innerHTML = '<div class="splash">' + logoHtml + '</div>';
   else if (!S.user) scr.innerHTML = login();
   else if (S.detail) scr.innerHTML = detail();
-  else scr.innerHTML = S.tab === 'home' ? home() : S.tab === 'video' ? videos() : S.tab === 'fav' ? favs() : profile();
+  else scr.innerHTML = S.tab === 'home' ? home() : S.tab === 'video' ? videos() : S.tab === 'fav' ? favs() : S.tab === 'msg' ? msgs() : profile();
   scr.scrollTop = keepScroll ? top : 0;
   const vp1 = $('#vp');
   if (vp1 && vp0 && keepScroll && vp0.getAttribute('src') === vp1.getAttribute('src')) { vp1.currentTime = ct; if (was) vp1.play().catch(() => {}); }
@@ -468,6 +528,7 @@ function render(keepScroll) {
 async function openDetail(id) {
   S.detail = id; S.videoUrl = null; S.videoErr = ''; render();
   const a = byId(id);
+  if (isMsg(a)) return;
   try {
     const url = await getDownloadURL(ref(storage, a.storagePath));
     if (S.detail === id) { S.videoUrl = url; render(true); }
@@ -522,7 +583,7 @@ document.addEventListener('submit', async (e) => {
 
 onAuthStateChanged(auth, async (u) => {
   if (unsub) { unsub(); unsub = null; }
-  S.list = []; S.detail = null; S.tab = 'home'; S.profile = null; S.team = null; S.loaded = false;
+  S.list = []; S.msgs = []; S.detail = null; S.tab = 'home'; S.profile = null; S.team = null; S.loaded = false;
   if (!u) { S.user = null; S.loading = false; render(); return; }
   S.user = u.uid; S.loading = true; render();
   try {
@@ -534,11 +595,15 @@ onAuthStateChanged(auth, async (u) => {
   const first = { v: true };
   unsub = onSnapshot(query(collection(db, 'assignments'), where('playerId', '==', u.uid)), (snap) => {
     const prev = S.list.map((a) => a.id);
-    S.list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => !scaduto(a) && !inAttesa(a));
+    const prevM = S.msgs.map((a) => a.id);
+    const tutti = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => !scaduto(a) && !inAttesa(a));
+    S.msgs = tutti.filter(isMsg); S.list = tutti.filter((a) => !isMsg(a));
     S.loaded = true;
     if (!first.v) {
       const nuovi = S.list.filter((a) => prev.indexOf(a.id) < 0);
-      if (nuovi.length) toast('Nuovo video dal tuo allenatore', nuovi.length > 1 ? nuovi.length + ' video da vedere' : nuovi[0].title);
+      const nuoviM = S.msgs.filter((a) => prevM.indexOf(a.id) < 0);
+      if (nuoviM.length) toast('Nuova comunicazione dal tuo allenatore', (nuoviM[0].conv && nuoviM[0].conv.gara) || nuoviM[0].title);
+      else if (nuovi.length) toast('Nuovo video dal tuo allenatore', nuovi.length > 1 ? nuovi.length + ' video da vedere' : nuovi[0].title);
     }
     first.v = false;
     render(true);

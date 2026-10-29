@@ -211,6 +211,22 @@
   a('Elimino…', 'Deleting…', 'Eliminando…', 'Suppression…');
   a('Giocatore eliminato.', 'Player deleted.', 'Jugador eliminado.', 'Joueur supprimé.');
   a('Non riesco a eliminare il giocatore. Riprova.', 'I can’t delete the player. Try again.', 'No puedo eliminar al jugador. Inténtalo de nuevo.', 'Impossible de supprimer le joueur. Réessayez.');
+  /* REVOS-COMUNICAZIONI */
+  a('Convocazione', 'Call-up', 'Convocatoria', 'Convocation', 'Nominierung', 'Convocatória', 'Poziv');
+  a('Letto', 'Read', 'Leído', 'Lu', 'Gelesen', 'Lido', 'Pročitano');
+  a('Ho letto', 'I’ve read it', 'Leído', 'J’ai lu', 'Gelesen', 'Li', 'Pročitao sam');
+  a('Comunicazioni', 'Messages', 'Comunicaciones', 'Communications', 'Mitteilungen', 'Comunicações', 'Obavijesti');
+  a('Avvisi', 'Messages', 'Avisos', 'Messages', 'Nachrichten', 'Avisos', 'Obavijesti');
+  a('Nuove comunicazioni', 'New messages', 'Nuevas comunicaciones', 'Nouvelles communications', 'Neue Mitteilungen', 'Novas comunicações', 'Nove obavijesti');
+  a('Convocazioni e avvisi del tuo allenatore.', 'Call-ups and messages from your coach.', 'Convocatorias y avisos de tu entrenador.', 'Convocations et messages de votre entraîneur.', 'Nominierungen und Mitteilungen deines Trainers.', 'Convocatórias e avisos do teu treinador.', 'Pozivi i obavijesti tvog trenera.');
+  a('Nessuna comunicazione per ora.', 'No messages yet.', 'Ninguna comunicación por ahora.', 'Aucune communication pour l’instant.', 'Noch keine Mitteilungen.', 'Nenhuma comunicação por agora.', 'Zasad nema obavijesti.');
+  a('Orario ritrovo', 'Meeting time', 'Hora de encuentro', 'Heure du rendez-vous', 'Treffpunkt-Uhrzeit', 'Hora de encontro', 'Vrijeme okupljanja');
+  a('Luogo ritrovo', 'Meeting point', 'Lugar de encuentro', 'Lieu du rendez-vous', 'Treffpunkt', 'Local de encontro', 'Mjesto okupljanja');
+  a('Orario gara', 'Match time', 'Hora del partido', 'Heure du match', 'Spielbeginn', 'Hora do jogo', 'Vrijeme utakmice');
+  a('Luogo gara', 'Match venue', 'Lugar del partido', 'Lieu du match', 'Spielort', 'Local do jogo', 'Mjesto utakmice');
+  a('Convocati', 'Called-up players', 'Convocados', 'Joueurs convoqués', 'Nominierte Spieler', 'Convocados', 'Pozvani igrači');
+  a('Riserve a casa', 'Reserves at home', 'Reservas en casa', 'Réservistes à la maison', 'Reserve (zu Hause)', 'Reservas em casa', 'Rezerve kod kuće');
+  a('Nuova comunicazione dal tuo allenatore', 'New message from your coach', 'Nueva comunicación de tu entrenador', 'Nouvelle communication de votre entraîneur', 'Neue Mitteilung von deinem Trainer', 'Nova comunicação do teu treinador', 'Nova obavijest od tvog trenera');
 
   /* REVOS-7LINGUE: tedesco / portoghese / croato per le voci esistenti */
   b("Email", "E-Mail", "Email", "E-pošta");
