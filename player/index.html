@@ -283,6 +283,8 @@ const avviso30 = () => '<p class="priv" style="margin-top:12px;padding:8px 12px;
 const scadMs = (a) => { const e = dt(a.expiresAt); if (e) return e.getTime(); const b = dt(a.assignedAt); return b ? b.getTime() + GIORNI_VIDEO * 86400000 : Infinity; };
 const giorniRest = (a) => Math.ceil((scadMs(a) - Date.now()) / 86400000);
 const scaduto = (a) => scadMs(a) <= Date.now();
+/*REVOS-PROGRAMMA* video programmati dall'allenatore: compaiono solo all'ora stabilita (o se annullati, mai) */
+const inAttesa = (a) => !!a.cancelled || a.pending === true || (!!a.publishAt && dt(a.publishAt) && dt(a.publishAt).getTime() > Date.now());
 function scadPill(a) {
   const g = giorniRest(a); if (!isFinite(g)) return '';
   const cls = g <= 3 ? ' exp-r' : g <= 7 ? ' exp-y' : '';
@@ -532,7 +534,7 @@ onAuthStateChanged(auth, async (u) => {
   const first = { v: true };
   unsub = onSnapshot(query(collection(db, 'assignments'), where('playerId', '==', u.uid)), (snap) => {
     const prev = S.list.map((a) => a.id);
-    S.list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => !scaduto(a));
+    S.list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => !scaduto(a) && !inAttesa(a));
     S.loaded = true;
     if (!first.v) {
       const nuovi = S.list.filter((a) => prev.indexOf(a.id) < 0);
