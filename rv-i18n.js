@@ -212,6 +212,13 @@
   a('Giocatore eliminato.', 'Player deleted.', 'Jugador eliminado.', 'Joueur supprimé.');
   a('Non riesco a eliminare il giocatore. Riprova.', 'I can’t delete the player. Try again.', 'No puedo eliminar al jugador. Inténtalo de nuevo.', 'Impossible de supprimer le joueur. Réessayez.');
   /* REVOS-COMUNICAZIONI */
+  a('Chiudi', 'Close', 'Cerrar', 'Fermer', 'Schließen', 'Fechar', 'Zatvori');
+  a('La tua foto', 'Your photo', 'Tu foto', 'Votre photo', 'Dein Foto', 'A tua foto', 'Tvoja fotografija');
+  a('Scegli una foto', 'Choose a photo', 'Elige una foto', 'Choisir une photo', 'Foto auswählen', 'Escolher uma foto', 'Odaberi fotografiju');
+  a('Togli la foto', 'Remove photo', 'Quitar la foto', 'Retirer la photo', 'Foto entfernen', 'Remover a foto', 'Ukloni fotografiju');
+  a('Oppure scegli il colore delle iniziali', 'Or choose the colour of your initials', 'O elige el color de tus iniciales', 'Ou choisissez la couleur de vos initiales', 'Oder wähle die Farbe deiner Initialen', 'Ou escolhe a cor das tuas iniciais', 'Ili odaberi boju inicijala');
+  a('Non riesco a leggere la foto', 'I can’t read the photo', 'No puedo leer la foto', 'Impossible de lire la photo', 'Ich kann das Foto nicht lesen', 'Não consigo ler a foto', 'Ne mogu pročitati fotografiju');
+  a('Prova con un’altra immagine.', 'Try another image.', 'Prueba con otra imagen.', 'Essayez une autre image.', 'Versuche ein anderes Bild.', 'Tenta outra imagem.', 'Pokušaj s drugom slikom.');
   a('Convocazione', 'Call-up', 'Convocatoria', 'Convocation', 'Nominierung', 'Convocatória', 'Poziv');
   a('Letto', 'Read', 'Leído', 'Lu', 'Gelesen', 'Lido', 'Pročitano');
   a('Ho letto', 'I’ve read it', 'Leído', 'J’ai lu', 'Gelesen', 'Li', 'Pročitao sam');

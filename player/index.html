@@ -229,6 +229,22 @@ body { padding: 0; }
 .ptoast { visibility: hidden; opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s 0.35s; }
 .ptoast.on { visibility: visible; opacity: 1; transition: transform 0.35s ease, opacity 0.35s ease; }
 html, body { min-height: 100%; }
+/*REVOS-AVATARPLAYER*/
+.avatar { position: relative; cursor: pointer; flex: none; }
+.avatar .avedit { position: absolute; right: -2px; bottom: -2px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: #04220f; border: 2px solid var(--bg); }
+.avatar .avedit svg { width: 15px; height: 15px; }
+.avatar.mini { width: 40px; height: 40px; font-size: 16px; border-width: 2px; }
+.avatar.mini .avedit { display: none; }
+.avatar.big { width: 132px; height: 132px; font-size: 50px; margin: 6px auto 18px; cursor: default; }
+.hometop { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.avsheet { position: fixed; inset: 0; z-index: 80; background: rgba(2, 8, 22, .7); display: flex; align-items: flex-end; justify-content: center; }
+.avs { width: min(480px, 100%); background: var(--bg2); border-top: 1px solid var(--line); border-radius: 22px 22px 0 0; padding: 22px 20px calc(22px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; text-align: center; }
+.avs h3 { margin: 0; font-family: var(--f-disp); font-size: 22px; text-transform: uppercase; }
+.avs .btn svg { width: 18px; height: 18px; }
+.avk { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+.avcol { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px 0 6px; }
+.avcol button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,.2); }
+.avcol button.on { box-shadow: 0 0 0 3px var(--bg2), 0 0 0 5px var(--lime); }
 /*REVOS-COMUNICAZIONI*/
 .pnav { grid-template-columns: repeat(5, 1fr); } .pnav button { min-width: 0; }
 .mrow { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; text-align: left; padding: 12px; border-radius: 14px; border: 1px solid rgba(120,190,255,.16); background: rgba(255,255,255,.03); color: inherit; font: inherit; cursor: pointer; }
@@ -396,6 +412,61 @@ function msgDetail(a) {
     (ris ? '<div class="sec">Riserve a casa</div><ol class="clist">' + ris + '</ol>' : '') +
     (c.note ? '<div class="note"><h5>Note dell’allenatore</h5><p>' + esc(c.note) + '</p></div>' : '') + '</div>' + letto;
 }
+/*REVOS-AVATARPLAYER* foto o colore dell'avatar, scelti dal giocatore (salvati nel profilo, con copia sul telefono) */
+const AV_COL = ['grad', '#8bfc03', '#22d3ee', '#3b82f6', '#a855f7', '#ff2fb3', '#ef4444', '#f97316', '#facc15', '#10b981'];
+const avLocale = () => { try { return JSON.parse(localStorage.getItem('rvAvatarP_' + S.user) || 'null'); } catch (e) { return null; } };
+const avDati = () => Object.assign({}, avLocale() || {}, (S.profile && S.profile.avatar) || {});
+const avBg = (c) => (!c || c === 'grad') ? 'linear-gradient(135deg, var(--panel2), var(--panel))' : c;
+const avFg = (c) => { if (!c || c === 'grad' || c[0] !== '#') return '#fff'; const r = parseInt(c.slice(1, 3), 16), g = parseInt(c.slice(3, 5), 16), b = parseInt(c.slice(5, 7), 16); return (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? '#04122b' : '#fff'; };
+const iniziali = () => esc(((S.profile && S.profile.name) || '?').split(' ').map((x) => x[0]).join('').slice(0, 2).toUpperCase());
+function avatarHtml(cls, act) {
+  const a = avDati();
+  const st = a.foto ? 'background:url(' + a.foto + ') center/cover no-repeat;color:transparent' : 'background:' + avBg(a.colore) + ';color:' + avFg(a.colore);
+  return '<div class="' + cls + '" style="' + st + '"' + (act ? ' data-act="' + act + '" role="button" tabindex="0"' : '') + '>' + (a.foto ? '' : iniziali()) + (act ? '<span class="avedit">' + ICO.cam + '</span>' : '') + '</div>';
+}
+ICO.cam = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+async function salvaAvatar(v) {
+  try { localStorage.setItem('rvAvatarP_' + S.user, JSON.stringify(v)); } catch (e) {}
+  S.profile = Object.assign({}, S.profile || {}, { avatar: v });
+  render(true);
+  try { await updateDoc(doc(db, 'users', S.user), { avatar: v }); } catch (e) { /* resta salvato su questo telefono */ }
+}
+function fotoQuadrata(file) {
+  return new Promise((ok, ko) => {
+    const r = new FileReader();
+    r.onload = () => { const im = new Image(); im.onload = () => {
+      const s = Math.min(im.width, im.height), c = document.createElement('canvas'); c.width = c.height = 200;
+      c.getContext('2d').drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, 200, 200);
+      ok(c.toDataURL('image/jpeg', 0.82));
+    }; im.onerror = ko; im.src = r.result; };
+    r.onerror = ko; r.readAsDataURL(file);
+  });
+}
+function apriAvatar() {
+  const a = avDati();
+  const box = document.createElement('div'); box.className = 'avsheet';
+  box.innerHTML = '<div class="avs"><h3>La tua foto</h3>' + avatarHtml('avatar big') +
+    '<button class="btn btn-lime wide" data-av="foto">' + ICO.cam + 'Scegli una foto</button>' +
+    (a.foto ? '<button class="btn wide" data-av="via">Togli la foto</button>' : '') +
+    '<p class="avk">Oppure scegli il colore delle iniziali</p><div class="avcol">' + AV_COL.map((c) => '<button data-c="' + c + '" style="background:' + avBg(c) + '"' + (!a.foto && (a.colore || 'grad') === c ? ' class="on"' : '') + '></button>').join('') + '</div>' +
+    '<button class="linkbtn" data-av="chiudi">Chiudi</button><input type="file" accept="image/*" hidden></div>';
+  document.body.appendChild(box);
+  const chiudi = () => box.remove();
+  const fin = box.querySelector('input[type=file]');
+  box.addEventListener('click', async (e) => {
+    if (e.target === box) return chiudi();
+    const b = e.target.closest('[data-av],[data-c]'); if (!b) return;
+    if (b.dataset.c) { await salvaAvatar({ colore: b.dataset.c }); chiudi(); }
+    else if (b.dataset.av === 'foto') fin.click();
+    else if (b.dataset.av === 'via') { await salvaAvatar({ colore: a.colore || 'grad' }); chiudi(); }
+    else chiudi();
+  });
+  fin.addEventListener('change', async () => {
+    const f = fin.files && fin.files[0]; if (!f) return;
+    try { await salvaAvatar({ foto: await fotoQuadrata(f), colore: a.colore || 'grad' }); chiudi(); }
+    catch (e) { toast('Non riesco a leggere la foto', 'Prova con un’altra immagine.'); }
+  });
+}
 function login() {
   return '<div class="login">' + logoHtml + '<h2>Il tuo allenatore<br>ti aspetta</h2><p class="s">Accedi con l’email e la password che ti ha dato lui.</p>' +
     '<form id="lg" autocomplete="on"><div class="fld"><label for="lgEmail">Email</label><input id="lgEmail" type="email" autocomplete="username" placeholder="nome@email.it" required></div>' +
@@ -406,7 +477,7 @@ function login() {
 }
 function home() {
   const m = sorted(), n = toWatch(m).length, first = ((S.profile && S.profile.name) || '').split(' ')[0] || '';
-  return logoHtml + '<h2 class="hello">Ciao ' + esc(first) + '<small>' + (n ? 'Il tuo allenatore ha preparato dei video per te.' : (m.length ? 'Hai visto tutto. Ottimo lavoro.' : 'Quando il tuo allenatore ti assegna un video lo trovi qui.')) + '</small></h2>' +
+  return '<div class="hometop">' + logoHtml + avatarHtml('avatar mini', 'avatar') + '</div><h2 class="hello">Ciao ' + esc(first) + '<small>' + (n ? 'Il tuo allenatore ha preparato dei video per te.' : (m.length ? 'Hai visto tutto. Ottimo lavoro.' : 'Quando il tuo allenatore ti assegna un video lo trovi qui.')) + '</small></h2>' +
     '<button class="todo' + (n ? '' : ' none') + '" data-act="towatch"><span class="n">' + n + '</span><div><b>' + (n ? 'Video da vedere' : 'Niente da vedere') + '</b><span>' + (n ? 'Tocca per aprire la lista' : 'Ti avviso quando ne arrivano di nuovi') + '</span></div>' + ICO.chev + '</button>' +
     (S.msgs.length ? '<button class="todo msgtodo' + (msgDaLeggere().length ? '' : ' none') + '" data-act="tab" data-k="msg"><span class="n">' + (msgDaLeggere().length || S.msgs.length) + '</span><div><b>' + (msgDaLeggere().length ? 'Nuove comunicazioni' : 'Comunicazioni') + '</b><span>' + esc((S.msgs.slice().sort((x, y) => ms(y) - ms(x))[0].conv || {}).gara || '') + '</span></div>' + ICO.chev + '</button>' : '') +
     '<div class="sec">Video recenti</div><div class="list">' + (m.length ? m.slice(0, 3).map(vrow).join('') : '<div class="empty">Ancora nessun video assegnato.</div>') + '</div>';
@@ -426,7 +497,7 @@ function favs() {
 function profile() {
   const p = S.profile || {}, m = S.list, seen = m.filter((a) => a.status === 'seen').length;
   const last = m.map((a) => dt(a.viewedAt)).filter(Boolean).sort((x, y) => y - x)[0];
-  return logoHtml + '<div class="prof"><div class="avatar">' + esc((p.name || '?').split(' ').map((x) => x[0]).join('').slice(0, 2)) + '</div><div><h2>' + esc(p.name || '') + '</h2><p>' + esc((S.team && S.team.name) || '') + (p.number ? ' · Numero ' + esc(p.number) : '') + '</p></div></div>' +
+  return logoHtml + '<div class="prof">' + avatarHtml('avatar', 'avatar') + '<div><h2>' + esc(p.name || '') + '</h2><p>' + esc((S.team && S.team.name) || '') + (p.number ? ' · Numero ' + esc(p.number) : '') + '</p></div></div>' +
     '<div class="stats"><div><b>' + m.length + '</b><span>Assegnati</span></div><div class="g"><b>' + seen + '</b><span>Visti</span></div><div class="r"><b>' + (m.length - seen) + '</b><span>Da vedere</span></div></div>' +
     '<div class="kv"><span>Ultima visualizzazione</span><b>' + (last ? fmtDT(last) : 'nessuna') + '</b></div>' +
     notifBox() +
@@ -560,6 +631,7 @@ document.addEventListener('click', async (e) => {
   else if (act === 'dl') { scaricaVideo(byId(S.detail), el); }
   else if (act === 'logout') { await signOut(auth); }
   else if (act === 'notif') { attivaNotifiche(); }
+  else if (act === 'avatar') { apriAvatar(); }
   else if (act === 'pw') { apriCambioPassword(); }
   else if (act === 'reset') {
     const em = ($('#lgEmail') || {}).value;
