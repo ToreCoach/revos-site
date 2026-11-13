@@ -106,236 +106,426 @@
   </url>
   <url>
     <loc>https://revosanalyst.com/allenatori/</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=it</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=en</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=es</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=fr</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=de</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=pt</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=hr</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
-  </url>
-  <url>
-    <loc>https://revosanalyst.com/allenatori/?lang=pl</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/allenatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/allenatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/allenatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/allenatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/allenatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/allenatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/allenatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/allenatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/allenatori/?lang=pl"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://revosanalyst.com/giocatori/</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=it</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=en</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/it/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=es</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/es/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=fr</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/fr/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=de</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/de/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=pt</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/pt/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=hr</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/hr/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
   </url>
   <url>
-    <loc>https://revosanalyst.com/giocatori/?lang=pl</loc>
-    <lastmod>2026-10-09</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/giocatori/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/giocatori/?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/giocatori/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/giocatori/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/giocatori/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/giocatori/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/giocatori/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/giocatori/?lang=hr"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/giocatori/?lang=pl"/>
+    <loc>https://revosanalyst.com/pl/handball/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/handball/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/handball/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/handball/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/handball/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/handball/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/handball/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/it/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/es/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/fr/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/de/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pt/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/hr/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pl/football/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/football/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/football/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/football/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/football/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/football/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/football/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/football/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/football/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/it/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/es/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/fr/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/de/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pt/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/hr/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pl/basket/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/basket/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/basket/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/basket/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/basket/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/basket/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/basket/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/it/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/es/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/fr/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/de/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pt/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/hr/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
+  </url>
+  <url>
+    <loc>https://revosanalyst.com/pl/futsal/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://revosanalyst.com/it/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://revosanalyst.com/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://revosanalyst.com/es/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://revosanalyst.com/fr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://revosanalyst.com/de/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://revosanalyst.com/pt/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://revosanalyst.com/hr/futsal/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://revosanalyst.com/pl/futsal/"/>
   </url>
 </urlset>
