@@ -17,9 +17,9 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="REVOS">
 <meta property="og:title" content="REVOS – Softver za Video Analizu Više Sportova"><meta property="og:description" content="Softver za video analizu više sportova: rukomet, nogomet, košarka i futsal. Označi akcije, pronađi klipove, izradi izvještaje i podijeli video. Besplatno 30 dana.">
 <meta property="og:url" content="https://revosanalyst.com/hr/"><meta property="og:locale" content="hr_HR">
-<meta property="og:image" content="https://revosanalyst.com/img/revos-home-hero.jpg">
+<meta property="og:image" content="https://revosanalyst.com/img/revos-home-hero-handball.jpg">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="REVOS – Softver za Video Analizu Više Sportova"><meta name="twitter:description" content="Softver za video analizu više sportova: rukomet, nogomet, košarka i futsal. Označi akcije, pronađi klipove, izradi izvještaje i podijeli video. Besplatno 30 dana.">
-<meta name="twitter:image" content="https://revosanalyst.com/img/revos-home-hero.jpg">
+<meta name="twitter:image" content="https://revosanalyst.com/img/revos-home-hero-handball.jpg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://revosanalyst.com/#website", "url": "https://revosanalyst.com/", "name": "REVOS", "inLanguage": ["it", "en", "es", "fr", "de", "pt", "hr", "pl"]}, {"@type": "SoftwareApplication", "@id": "https://revosanalyst.com/#software", "name": "REVOS Analyst", "alternateName": "REVOS", "url": "https://revosanalyst.com/", "description": "Professional sports video analysis software for coaches, staff and video analysts in team sports: match analysis, video tagging, clips, tactical drawing, scouting reports, statistics, training planning and player video sharing.", "applicationCategory": "SportsApplication", "operatingSystem": "macOS, Windows, Linux", "image": "https://revosanalyst.com/img/revos-sports-video-analysis-presentation.jpg", "inLanguage": ["it", "en", "es", "fr", "de", "pt", "hr", "pl"], "offers": {"@type": "Offer", "price": "169", "priceCurrency": "EUR", "url": "https://revosanalyst.com/#download", "description": "30-day free trial, then 169 EUR per year", "availability": "https://schema.org/InStock"}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -274,7 +274,18 @@ nav .brand .acr { display: none; }
 .tq figcaption small { color: var(--cy); font-size: 14px; letter-spacing: .04em; }
 </style>
 <style>/*REVOS-HB-LINK*/.ms-hb{margin:22px auto 0;text-align:center;font-size:18px;color:var(--muted)}.ms-hb a{color:var(--lime);font-weight:600;text-decoration:underline;text-underline-offset:3px}</style>
-<style>/*REVOS-HOME-MULTISPORT*/
+<style>/*REVOS-MS-H2*/
+.multisport h2, .clipsec h2, .flow h2, .head h2 { max-width: none; text-wrap: balance; font-size: clamp(32px, 4.4vw, 60px); }
+/*REVOS-HERO-2COL*/
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 48px; row-gap: 28px; align-items: center; }
+  .hero h1.tag { grid-column: 1 / -1; }
+  .hero { container-type: inline-size; }
+  .hero .slogan { grid-column: 1; grid-row: 2; font-size: clamp(44px, 8.4cqw, 100px); line-height: 1; }
+  .hero-row { grid-column: 2; grid-row: 2; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 26px; }
+  .hero-row p { max-width: none; }
+}
+/*REVOS-HOME-MULTISPORT*/
 .hero-sports{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 18px}
 .hero-sports span{font:700 13px var(--f-disp);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .hero-sports a{padding:6px 15px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);color:var(--fg);font:700 15px var(--f-disp);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:.18s}
@@ -321,8 +332,15 @@ nav .brand .acr { display: none; }
       <a class="btn" href="#come-funziona">Pogledaj kako funkcionira</a>
     </div>
   </div>
-  <div class="shot"><img src="/img/revos-home-hero.jpg" fetchpriority="high" alt="REVOS softver za video analizu više sportova: video utakmice s taktičkim crtežima, popis označenih događaja, vremenska crta klipova i odabir sporta" width="1672" height="941"></div>
-</header>
+  </header>
+
+<section class="multisport" id="sport">
+  <div class="ms-head"><span class="tag">Više sportova</span>
+  <h2>Video analiza za više sportova: jedna platforma, svaki sport</h2>
+  <p class="sub">Četiri posebna profila, dostupna odmah. Isti način analize, s oznakama, ulogama, igralištima i statistikom svakog sporta.</p></div>
+  <div class="spgrid"><a class="spc" href="/hr/handball/"><img src="/img/revos-home-handball.jpg" alt="Rukometna ploča s oznakama u REVOS-u s kategorijama napada, obrane i vratara" width="1100" height="619"><span class="b"><h3>Rukomet</h3><p>Oznake za napad, obranu, vratare i šutove, s rukometnim igralištem i vježbama.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/football/"><img src="/img/revos-home-football.jpg" alt="Nogometna ploča s oznakama u REVOS-u s fazama igre, izgradnjom i završnicom" width="1100" height="619"><span class="b"><h3>Nogomet</h3><p>Faze igre, izgradnja, završnica i prekidi, s ulogama i nogometnim igralištem.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/basket/"><img src="/img/revos-home-basket.jpg" alt="Košarkaški ekran za označavanje u REVOS-u s momčadi, igračem i akcijama" width="1100" height="619"><span class="b"><h3>Košarka</h3><p>Napad, obrana, skokovi, tranzicija i sustavi, s ulogama i košarkaškim igralištem.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/futsal/"><img src="/img/revos-home-futsal.jpg" alt="Futsal ploča s oznakama u REVOS-u s fazama igre, igrom s pivotom i pressingom" width="1100" height="619"><span class="b"><h3>Futsal</h3><p>Izgradnja, igra s pivotom, pressing i prekidi, s ulogama vratar, fixo, krilo i pivot.</p><span class="go">Saznaj više</span></span></a></div>
+  <p class="ms-soon">U razvoju: rukomet na pijesku, odbojka, ragbi, hokej, bejzbol, američki nogomet.</p>
+</section>
 
 <section class="flow" id="come-funziona">
   <span class="tag">Kako radi</span>
@@ -336,6 +354,7 @@ nav .brand .acr { display: none; }
     <div class="step"><span class="num">06</span><h3>Podijeli</h3><p>Prikaži ga momčadi ili pošalji videe igračima na mobitel.</p></div>
   </div>
 </section>
+
 <div id="funzioni"></div>
 
 <section class="feat">
@@ -429,7 +448,7 @@ nav .brand .acr { display: none; }
       <li>Izvezi u PNG-u ili PDF-u ili ispiši karticu s opisom i opremom</li>
     </ul>
   </div>
-  <div class="shot"><img src="/img/revos-tactical-exercise-editor.jpg" alt="REVOS uređivač vježbi: košarkaško igralište s igračima, braničima i strelicama kretanja i dodavanja" width="1300" height="728" loading="lazy"></div>
+  <div class="shot"><img src="/img/revos-home-exercises.jpg" alt="REVOS uređivač vježbi: futsal teren s igračima, vratarom i strelicama kretanja i dodavanja te panelom s informacijama o vježbi" width="1300" height="731" loading="lazy"></div>
 </section>
 
 <section class="feat rev" id="analisi-video">
@@ -445,14 +464,6 @@ nav .brand .acr { display: none; }
     </ul>
   </div>
   <div class="shot"><img src="/img/revos-home-analysis.jpg" alt="REVOS video analiza: odabir između moje momčadi, protivnika, skautiranja, edukacije i pojedinačne analize" width="1300" height="731" loading="lazy"></div>
-</section>
-
-<section class="multisport" id="sport">
-  <div class="ms-head"><span class="tag">Više sportova</span>
-  <h2>Video analiza za više sportova: jedna platforma, svaki sport</h2>
-  <p class="sub">Četiri posebna profila, dostupna odmah. Isti način analize, s oznakama, ulogama, igralištima i statistikom svakog sporta.</p></div>
-  <div class="spgrid"><a class="spc" href="/hr/handball/"><img src="/img/revos-home-handball.jpg" alt="Rukometna ploča s oznakama u REVOS-u s kategorijama napada, obrane i vratara" width="1100" height="619" loading="lazy"><span class="b"><h3>Rukomet</h3><p>Oznake za napad, obranu, vratare i šutove, s rukometnim igralištem i vježbama.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/football/"><img src="/img/revos-home-football.jpg" alt="Nogometna ploča s oznakama u REVOS-u s fazama igre, izgradnjom i završnicom" width="1100" height="619" loading="lazy"><span class="b"><h3>Nogomet</h3><p>Faze igre, izgradnja, završnica i prekidi, s ulogama i nogometnim igralištem.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/basket/"><img src="/img/revos-home-basket.jpg" alt="Košarkaški ekran za označavanje u REVOS-u s momčadi, igračem i akcijama" width="1100" height="619" loading="lazy"><span class="b"><h3>Košarka</h3><p>Napad, obrana, skokovi, tranzicija i sustavi, s ulogama i košarkaškim igralištem.</p><span class="go">Saznaj više</span></span></a><a class="spc" href="/hr/futsal/"><img src="/img/revos-home-futsal.jpg" alt="Futsal ploča s oznakama u REVOS-u s fazama igre, igrom s pivotom i pressingom" width="1100" height="619" loading="lazy"><span class="b"><h3>Futsal</h3><p>Izgradnja, igra s pivotom, pressing i prekidi, s ulogama vratar, fixo, krilo i pivot.</p><span class="go">Saznaj više</span></span></a></div>
-  <p class="ms-soon">U razvoju: rukomet na pijesku, odbojka, ragbi, hokej, bejzbol, američki nogomet.</p>
 </section>
 
 <section>

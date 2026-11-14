@@ -18,9 +18,9 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="REVOS">
 <meta property="og:title" content="REVOS | Multisport Video Analysis Software for Coaches"><meta property="og:description" content="Multisport video analysis software for handball, football, basketball and futsal. Tag matches, draw tactics, build reports and share video. Try REVOS free for 30 days.">
 <meta property="og:url" content="https://revosanalyst.com/"><meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://revosanalyst.com/img/revos-home-hero.jpg">
+<meta property="og:image" content="https://revosanalyst.com/img/revos-home-hero-handball.jpg">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="REVOS | Multisport Video Analysis Software for Coaches"><meta name="twitter:description" content="Multisport video analysis software for handball, football, basketball and futsal. Tag matches, draw tactics, build reports and share video. Try REVOS free for 30 days.">
-<meta name="twitter:image" content="https://revosanalyst.com/img/revos-home-hero.jpg">
+<meta name="twitter:image" content="https://revosanalyst.com/img/revos-home-hero-handball.jpg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://revosanalyst.com/#website", "url": "https://revosanalyst.com/", "name": "REVOS", "inLanguage": ["it", "en", "es", "fr", "de", "pt", "hr", "pl"]}, {"@type": "SoftwareApplication", "@id": "https://revosanalyst.com/#software", "name": "REVOS Analyst", "alternateName": "REVOS", "url": "https://revosanalyst.com/", "description": "Professional sports video analysis software for coaches, staff and video analysts in team sports: match analysis, video tagging, clips, tactical drawing, scouting reports, statistics, training planning and player video sharing.", "applicationCategory": "SportsApplication", "operatingSystem": "macOS, Windows, Linux", "image": "https://revosanalyst.com/img/revos-sports-video-analysis-presentation.jpg", "inLanguage": ["it", "en", "es", "fr", "de", "pt", "hr", "pl"], "offers": {"@type": "Offer", "price": "169", "priceCurrency": "EUR", "url": "https://revosanalyst.com/#download", "description": "30-day free trial, then 169 EUR per year", "availability": "https://schema.org/InStock"}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,7 +275,18 @@ nav .brand .acr { display: none; }
 .tq figcaption small { color: var(--cy); font-size: 14px; letter-spacing: .04em; }
 </style>
 <style>/*REVOS-HB-LINK*/.ms-hb{margin:22px auto 0;text-align:center;font-size:18px;color:var(--muted)}.ms-hb a{color:var(--lime);font-weight:600;text-decoration:underline;text-underline-offset:3px}</style>
-<style>/*REVOS-HOME-MULTISPORT*/
+<style>/*REVOS-MS-H2*/
+.multisport h2, .clipsec h2, .flow h2, .head h2 { max-width: none; text-wrap: balance; font-size: clamp(32px, 4.4vw, 60px); }
+/*REVOS-HERO-2COL*/
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 48px; row-gap: 28px; align-items: center; }
+  .hero h1.tag { grid-column: 1 / -1; }
+  .hero { container-type: inline-size; }
+  .hero .slogan { grid-column: 1; grid-row: 2; font-size: clamp(44px, 8.4cqw, 100px); line-height: 1; }
+  .hero-row { grid-column: 2; grid-row: 2; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 26px; }
+  .hero-row p { max-width: none; }
+}
+/*REVOS-HOME-MULTISPORT*/
 .hero-sports{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 18px}
 .hero-sports span{font:700 13px var(--f-disp);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .hero-sports a{padding:6px 15px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);color:var(--fg);font:700 15px var(--f-disp);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:.18s}
@@ -322,8 +333,15 @@ nav .brand .acr { display: none; }
       <a class="btn" href="#come-funziona">See how it works</a>
     </div>
   </div>
-  <div class="shot"><img src="/img/revos-home-hero.jpg" fetchpriority="high" alt="REVOS multisport video analysis software: match video with tactical drawings, tagged events list, clip timeline and sport selector" width="1672" height="941"></div>
-</header>
+  </header>
+
+<section class="multisport" id="sport">
+  <div class="ms-head"><span class="tag">Multi-sport</span>
+  <h2>Multi-sport video analysis: one platform, every sport</h2>
+  <p class="sub">Four dedicated profiles, available now. The same analysis workflow, with the tag panels, roles, courts and statistics of each sport.</p></div>
+  <div class="spgrid"><a class="spc" href="/handball/"><img src="/img/revos-home-handball.jpg" alt="REVOS handball tag panel with attack, defence and goalkeeper categories" width="1100" height="619"><span class="b"><h3>Handball</h3><p>Tag panels for attack, defence, goalkeepers and shots, with handball court and drills.</p><span class="go">Learn more</span></span></a><a class="spc" href="/football/"><img src="/img/revos-home-football.jpg" alt="REVOS football tag panel with phases of play, build-up and finishing" width="1100" height="619"><span class="b"><h3>Football</h3><p>Phases of play, build-up, finishing and set pieces, with football roles and pitch.</p><span class="go">Learn more</span></span></a><a class="spc" href="/basket/"><img src="/img/revos-home-basket.jpg" alt="REVOS basketball tagging screen with team, player and game actions" width="1100" height="619"><span class="b"><h3>Basketball</h3><p>Offence, defence, rebounds, transition and set plays, with basketball roles and court.</p><span class="go">Learn more</span></span></a><a class="spc" href="/futsal/"><img src="/img/revos-home-futsal.jpg" alt="REVOS futsal tag panel with phases of play, pivot play and pressing" width="1100" height="619"><span class="b"><h3>Futsal</h3><p>Build-up, pivot play, pressing and set pieces, with goalkeeper, fixo, winger and pivot roles.</p><span class="go">Learn more</span></span></a></div>
+  <p class="ms-soon">In development: Beach handball, Volleyball, Rugby, Hockey, Baseball, American football.</p>
+</section>
 
 <section class="flow" id="come-funziona">
   <span class="tag">How it works</span>
@@ -337,6 +355,7 @@ nav .brand .acr { display: none; }
     <div class="step"><span class="num">06</span><h3>Share</h3><p>Present it to the team or send the videos to your players' phones.</p></div>
   </div>
 </section>
+
 <div id="funzioni"></div>
 
 <section class="feat">
@@ -430,7 +449,7 @@ nav .brand .acr { display: none; }
       <li>Export to PNG or PDF, or print the sheet with description and equipment</li>
     </ul>
   </div>
-  <div class="shot"><img src="/img/revos-tactical-exercise-editor.jpg" alt="REVOS drill editor: basketball court with players, defenders and movement and pass arrows" width="1300" height="728" loading="lazy"></div>
+  <div class="shot"><img src="/img/revos-home-exercises.jpg" alt="REVOS drill editor: futsal court with players, goalkeeper and movement and pass arrows, plus the exercise information panel" width="1300" height="731" loading="lazy"></div>
 </section>
 
 <section class="feat rev" id="analisi-video">
@@ -446,14 +465,6 @@ nav .brand .acr { display: none; }
     </ul>
   </div>
   <div class="shot"><img src="/img/revos-home-analysis.jpg" alt="REVOS Video Analysis: choose between my team, opponents, scouting, education and individual analysis" width="1300" height="731" loading="lazy"></div>
-</section>
-
-<section class="multisport" id="sport">
-  <div class="ms-head"><span class="tag">Multi-sport</span>
-  <h2>Multi-sport video analysis: one platform, every sport</h2>
-  <p class="sub">Four dedicated profiles, available now. The same analysis workflow, with the tag panels, roles, courts and statistics of each sport.</p></div>
-  <div class="spgrid"><a class="spc" href="/handball/"><img src="/img/revos-home-handball.jpg" alt="REVOS handball tag panel with attack, defence and goalkeeper categories" width="1100" height="619" loading="lazy"><span class="b"><h3>Handball</h3><p>Tag panels for attack, defence, goalkeepers and shots, with handball court and drills.</p><span class="go">Learn more</span></span></a><a class="spc" href="/football/"><img src="/img/revos-home-football.jpg" alt="REVOS football tag panel with phases of play, build-up and finishing" width="1100" height="619" loading="lazy"><span class="b"><h3>Football</h3><p>Phases of play, build-up, finishing and set pieces, with football roles and pitch.</p><span class="go">Learn more</span></span></a><a class="spc" href="/basket/"><img src="/img/revos-home-basket.jpg" alt="REVOS basketball tagging screen with team, player and game actions" width="1100" height="619" loading="lazy"><span class="b"><h3>Basketball</h3><p>Offence, defence, rebounds, transition and set plays, with basketball roles and court.</p><span class="go">Learn more</span></span></a><a class="spc" href="/futsal/"><img src="/img/revos-home-futsal.jpg" alt="REVOS futsal tag panel with phases of play, pivot play and pressing" width="1100" height="619" loading="lazy"><span class="b"><h3>Futsal</h3><p>Build-up, pivot play, pressing and set pieces, with goalkeeper, fixo, winger and pivot roles.</p><span class="go">Learn more</span></span></a></div>
-  <p class="ms-soon">In development: Beach handball, Volleyball, Rugby, Hockey, Baseball, American football.</p>
 </section>
 
 <section>
