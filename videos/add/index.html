@@ -17,7 +17,7 @@ button{margin-top:22px;background:#8bfc03;color:#04220f;border:0;border-radius:9
 var D=window.REVOS_VIDEOS,LN={it:'Italiano',en:'English (obbligatorio)',es:'Español',fr:'Français',de:'Deutsch',pt:'Português',hr:'Hrvatski',pl:'Polski'};
 document.getElementById('cat').innerHTML=D.categories.map(function(c){return '<option value="'+c.id+'">'+c.name.it+'</option>'}).join('');
 document.getElementById('sp').innerHTML='<label><input type="checkbox" value="all">Tutti gli sport</label>'+D.sports.map(function(s){return '<label><input type="checkbox" value="'+s.id+'">'+s.name.it+'</label>'}).join('');
-document.getElementById('tr').innerHTML=Object.keys(LN).map(function(l,i){return '<details'+(i<2?' open':'')+'><summary>'+LN[l]+'</summary><label>Titolo</label><input data-t="'+l+'"><label>Descrizione</label><textarea data-d="'+l+'"></textarea></details>'}).join('');
+document.getElementById('tr').innerHTML=Object.keys(LN).map(function(l,i){return '<details'+(i<2?' open':'')+'><summary>'+LN[l]+'</summary><label>Titolo</label><input data-t="'+l+'"><label>Descrizione</label><textarea data-d="'+l+'"></textarea><label>Trascrizione o sottotitoli (opzionale)</label><textarea data-x="'+l+'"></textarea></details>'}).join('');
 document.getElementById('go').onclick=function(){
  var m=/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/.exec(document.getElementById('yt').value),id=m?m[1]:document.getElementById('yt').value.trim();
  var v={id:id,youtube:id,category:document.getElementById('cat').value,sports:[].map.call(document.querySelectorAll('#sp input:checked'),function(x){return x.value}),title:{},description:{}};
@@ -25,6 +25,7 @@ document.getElementById('go').onclick=function(){
  [['len','length'],['date','uploadDate'],['dur','duration'],['thumb','thumbnail']].forEach(function(p){var x=document.getElementById(p[0]).value.trim();if(x)v[p[1]]=x});
  document.querySelectorAll('[data-t]').forEach(function(i){if(i.value.trim())v.title[i.dataset.t]=i.value.trim()});
  document.querySelectorAll('[data-d]').forEach(function(i){if(i.value.trim())v.description[i.dataset.d]=i.value.trim()});
+ v.transcript={};document.querySelectorAll('[data-x]').forEach(function(i){if(i.value.trim())v.transcript[i.dataset.x]=i.value.trim()});if(!Object.keys(v.transcript).length)delete v.transcript;
  var o=document.getElementById('out');o.hidden=false;o.textContent=(v.title.en?'':'/* ATTENZIONE: manca il titolo in inglese */\n')+JSON.stringify(v,null,2)+',';
 };
 </script></html>
