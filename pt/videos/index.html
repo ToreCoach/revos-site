@@ -1,6 +1,8 @@
 <html lang="pt">
 <meta charset="utf-8"><meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted'});</script>
+<script src="/rv-track.js" defer></script>
 <title>Vídeos REVOS | Software de análise de vídeo desportivo</title>
 <meta name="description" content="Descubra o software de análise de vídeo REVOS através de vídeos do produto, tutoriais e demonstrações de funcionalidades para treinadores e equipas.">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -423,10 +425,10 @@ function yid(v){var m=/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/.exec(v||'
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function thumbSrc(v){return v.thumbnail?v.thumbnail:'https://i.ytimg.com/vi/'+yid(v.youtube||v.id)+'/maxresdefault.jpg';}
 var PLAY='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
-function embed(id){return 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1';}
+function embed(id){return 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1&enablejsapi=1';}
 /* player principale: l'iframe YouTube viene creato solo al click */
 var vp=document.getElementById('vp');
-if(vp){var b=vp.querySelector('.vplay');b.addEventListener('click',function(){var f=document.createElement('iframe');f.src=embed(vp.dataset.yt);f.title=vp.dataset.title||'';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';vp.appendChild(f);vp.classList.add('on');b.style.display='none';});}
+if(vp){var b=vp.querySelector('.vplay');b.addEventListener('click',function(){var f=document.createElement('iframe');f.src=embed(vp.dataset.yt);f.title=vp.dataset.title||'';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';vp.appendChild(f);vp.classList.add('on');window.rvTrackVideo&&rvTrackVideo(f,vp.dataset.yt,vp.dataset.title,'main');b.style.display='none';});}
 /* libreria */
 var vids=(D.videos||[]).filter(function(v){return v&&(v.youtube||v.id);});
 var lib=document.getElementById('vlib-body');
@@ -470,7 +472,7 @@ function openM(v,from){
     M.addEventListener('click',function(e){if(e.target===M||e.target.classList.contains('x'))closeM();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!M.hidden)closeM();});}
   var f=document.createElement('iframe');f.src=embed(yid(v.youtube||v.id));f.title=tx(v.title);f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';
-  M.querySelector('.frame').innerHTML='';M.querySelector('.frame').appendChild(f);M.querySelector('.mt').textContent=tx(v.title);var trt=tx(v.transcript),dd=M.querySelector('.mtr');dd.hidden=!trt;dd.open=false;if(trt){dd.querySelector('summary').textContent=({en:'Transcript',it:'Trascrizione',es:'Transcripción',fr:'Transcription',de:'Transkript',pt:'Transcrição',hr:'Transkript',pl:'Transkrypcja'})[L]||'Transcript';dd.querySelector('div').textContent=trt;}M.hidden=false;M.querySelector('.x').focus();
+  M.querySelector('.frame').innerHTML='';M.querySelector('.frame').appendChild(f);window.rvTrackVideo&&rvTrackVideo(f,yid(v.youtube||v.id),tx(v.title),'grid');M.querySelector('.mt').textContent=tx(v.title);var trt=tx(v.transcript),dd=M.querySelector('.mtr');dd.hidden=!trt;dd.open=false;if(trt){dd.querySelector('summary').textContent=({en:'Transcript',it:'Trascrizione',es:'Transcripción',fr:'Transcription',de:'Transkript',pt:'Transcrição',hr:'Transkript',pl:'Transkrypcja'})[L]||'Transcript';dd.querySelector('div').textContent=trt;}M.hidden=false;M.querySelector('.x').focus();
 }
 function closeM(){M.hidden=true;M.querySelector('.frame').innerHTML='';if(last)last.focus();}
 render();
