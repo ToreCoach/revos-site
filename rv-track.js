@@ -2,7 +2,7 @@
    Nessun dato viene inviato e GTM non viene nemmeno caricato finché l'utente non accetta i cookie di analisi. */
 (function () {
   'use strict';
-  var GTM_ID = 'GTM-PNLVLXNK', KEY = 'rv-consent', KEYT = 'rv-consent-t', DURATA = 180 * 86400000;
+  var GTM_ID = 'GTM-NHLNL8ZQ', KEY = 'rv-consent', KEYT = 'rv-consent-t', DURATA = 180 * 86400000;
   var L = (document.documentElement.lang || 'en').slice(0, 2);
   var TXT = {
     en: ['We use analytics cookies to understand how the site is used and improve it. You can accept or reject them at any time.', 'Accept', 'Reject', 'Privacy & cookies', 'Cookie settings'],
