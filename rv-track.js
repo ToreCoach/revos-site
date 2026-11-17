@@ -78,7 +78,9 @@
     var f = document.querySelector('footer .fl'); if (!f || f.querySelector('[data-rv-priv]')) return;
     var a = document.createElement('a'); a.href = PRIV; a.textContent = T[3]; a.setAttribute('data-rv-priv', '1');
     var b = document.createElement('a'); b.href = '#'; b.textContent = T[4]; b.addEventListener('click', function (e) { e.preventDefault(); show(); });
-    f.appendChild(a); f.appendChild(b);
+    var TT = {en:'Terms of use',it:'Termini di utilizzo',es:'Términos de uso',fr:'Conditions d’utilisation',de:'Nutzungsbedingungen',pt:'Termos de utilização',hr:'Uvjeti korištenja',pl:'Warunki korzystania'};
+    var c = document.createElement('a'); c.href = PRIV.replace(/privacy\/?$/, 'terms/'); c.textContent = TT[L] || TT.en; c.setAttribute('data-rv-terms', '1');
+    f.appendChild(a); f.appendChild(c); f.appendChild(b);
   }
 
   /* click: prova gratuita / download */
